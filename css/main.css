@@ -1,0 +1,171 @@
+/* ======================================
+   自己的css样式
+   ====================================== */
+
+/*=index.html页面的css样式设置=*/
+/*.login start.*/
+.login h3 {
+    text-align: center;
+    color: #3388cc;
+    margin-bottom: 30px;
+}
+
+.login p, input, a {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.keepLogin input, .keepLogin label {
+    display: inline-block;
+    font-size: 12px;
+}
+
+.login .submit {
+    text-align: center;
+    padding: 5px 8px 5px 8px;
+}
+
+/*.login end.*/
+
+/*=main.html页面的css样式设置=*/
+.content {
+    padding: 5px;
+}
+
+.content h3 {
+    text-align: center;
+    padding: 5px 0 10px;
+    margin: 0;
+}
+
+.content label {
+    text-overflow: ellipsis;
+    display: inline-block;
+    padding: 0 5px;
+    margin: 0;
+}
+
+/*==#borrowPage部分==*/
+/*.books info start.*/
+.bookInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+.y_books {
+    background: #ffffff;
+    border: 1px solid #3388cc;
+    margin: 0 0 10px;
+}
+
+.y_books p {
+    margin: 0;
+    padding: 4px 0;
+}
+
+.y_books-header {
+    background: none repeat scroll 0 0 #3388cc;
+    line-height: 17px;
+    margin: 0;
+    text-align: right;
+}
+
+/*去掉框架的默认css样式*/
+.y_books-header .ui-link {
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: normal;
+    margin: 0 5px 0 0;
+    text-shadow: none;
+}
+
+/*end*/
+
+.y_books-body {
+    padding: 10px 20px;
+}
+
+.y_books-body-borrow {
+    padding: 10px 0;
+}
+
+.y_books-body-deadline {
+    color: #FD0000;
+}
+
+.y_books-body-borrow-submit {
+    padding: 5px 8px !important;
+    margin: 0 !important;
+    width: 52px;
+    height: 17px;
+    font-size: 12px;
+}
+
+/*.books info end.*/
+
+/*==#searchPage部分==*/
+/*....search  start....*/
+.searchInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+#search.ui-input-search {
+    width: 80%;
+    float: left;
+}
+
+#search {
+    text-align: center;
+}
+
+#search .searchButton, .searchButton .ui-btn {
+    padding: 3px 10px 3px 10px;
+    margin: 0;
+}
+
+#searchButton {
+    font-size: 12px;
+    padding: 0 8px 0 8px;
+}
+
+.m_favourite {
+    text-align: center;
+}
+
+.content_btn {
+    padding: 5px 8px 5px 32px;
+    margin: 0;
+}
+
+#list {
+    margin: 3px;
+    padding: 0;
+    border: 1px solid #3388cc;
+    border-top: 20px solid #3388cc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+/*....search  end....*/
+
+/*==#favouritePage部分==*/
+/*....favourite  start....*/
+.favInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+/*....favourite  end....*/
+
+/*....reading  start....*/
+.readingInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+/*....reading  end....*/

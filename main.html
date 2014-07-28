@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>西邮图书馆</title>
+    <meta name="description" content="西邮图书馆，西邮3G实验室，西安邮电大学">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+    -->
+    <link rel="stylesheet" href="css/themes/jquery.mobile-1.4.2.css"/>
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">亲，您还在使用着 <strong>过时的</strong> 浏览器. 请您
+    <a href="http://browsehappy.com/">更新</a> 一下吧以使您得到更好的体验哦！
+</p>
+<![end if]-->
+
+<!--用户已借图书页面-->
+<div data-role="page" id="borrowPage" data-title="已借图书">
+    <div data-role="header" data-position="fixed" class="header">
+        <h1>欢迎<span class="name"></span>同学</h1>
+        <a href="#" data-icon="home" data-inline="true" class="controlBtn">主页</a>
+        <a href="index.html" data-icon="back" data-inline="true" class="controlBtn" data-ajax="false">退出</a>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#" class="ui-btn-active" data-transition="slide">已借图书</a></li>
+                <li><a href="#searchPage" data-transition="slide">搜索</a></li>
+                <li><a href="#favouritePage" data-transition="slide">收藏夹</a></li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" class="content">
+        <h3>您借阅的图书如下</h3>
+
+        <div class="bookInfo">
+            <div class="y_books">
+                <div class="y_books-header">
+                    <p>
+                        <a href="moreInfo.html" data-rel="external" data-ajax="false">图书详情</a>
+                    </p>
+                </div>
+                <div class="y_books-body">
+                    <p>书名:<label>123</label></p>
+
+                    <p>书号:<label>11123</label></p>
+
+                    <p>到期时间:<label class="y_books-body-deadline">123</label></p>
+
+                    <p class="y_books-body-borrow">
+                        <a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a>
+                    </p>
+                </div>
+                <div class="y_books-footer">
+
+                </div>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+        </div>
+    </div>
+</div>
+
+<!--搜索页面-->
+<div data-role="page" id="searchPage" data-title="图书搜索">
+    <div data-role="header" data-position="fixed" class="header">
+        <h1>欢迎<span class="name"></span>同学</h1>
+        <a href="#borrowPage" data-icon="home" data-inline="true" class="controlBtn">主页</a>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#borrowPage" data-transition="slide">已借图书</a></li>
+                <li><a href="#" class="ui-btn-active" data-transition="slide">搜索</a></li>
+                <li><a href="#favouritePage" data-transition="slide">收藏夹</a></li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" class="content">
+        <form method="post" id="search">
+            <div data-role="fieldcontain">
+                <input type="search" name="searchBox" id="searchBox">
+
+                <p class="searchButton"><input type="submit" data-inline="true" id="searchButton" value="搜索"></p>
+            </div>
+        </form>
+
+        <div id="searchResult">
+            <h3>搜索结果如下</h3>
+
+            <div class="searchInfo">
+                <div class="y_books">
+                    <div class="y_books-header">
+                        <p>
+                            <a href="moreInfo.html" data-rel="external" data-ajax="false">图书详情</a>
+                        </p>
+                    </div>
+                    <div class="y_books-body">
+                        <p><label>《21天突破java》</label></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="readingList">
+            <h3>借阅排行</h3>
+
+            <div class="readingInfo">
+                <ol data-role="listview" id="list">
+                    <li><a href="moreInfo.html" data-rel="external" data-ajax="false">test1</a></li>
+                    <li><a href="moreInfo.html" data-rel="external" data-ajax="false">test1</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+    </div>
+</div>
+
+<!--用户收藏页面-->
+<div data-role="page" id="favouritePage" data-title="图书收藏">
+    <div data-role="header" data-position="fixed" class="header">
+        <h1>欢迎<span class="name"></span>同学</h1>
+        <a href="#borrowPage" data-icon="home" data-inline="true" class="controlBtn">主页</a>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#borrowPage" data-transition="slide">已借图书</a></li>
+                <li><a href="#searchPage" data-transition="slide">搜索</a></li>
+                <li><a href="#" class="ui-btn-active" data-transition="slide">收藏夹</a></li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" class="content">
+        <h3>您收藏的图书如下</h3>
+
+        <div class="favInfo">
+            <div class="y_books">
+                <div class="y_books-header">
+                    <p>
+                        <a href="moreInfo.html" data-rel="external" data-ajax="false">图书详情</a>
+                    </p>
+                </div>
+                <div class="y_books-body">
+                    <p><img src="" width="60px" height="60px">
+                        书名:<label></label></p>
+
+                    <p>图书馆索书号:<label></label></p>
+
+                    <p>作者:<label></label></p>
+
+                    <p class="m_favourite"><a href="" data-role="button" data-icon="star" data-inline="true"
+                                              class="content_btn">从收藏夹移除</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+    </div>
+</div>
+
+
+<!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+-->
+
+<!--下面的内容是加载页面要用的js文件-->
+<script src="js/vendor/jquery-1.11.1.js"></script>
+<script src="js/vendor/jquery.mobile-1.4.2.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
+
+<!-- 下面的注释是引用谷歌的站点统计分析工具的js代码-->
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<!--<script>
+    (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+                function () {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = '//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>-->
+</body>
+</html>

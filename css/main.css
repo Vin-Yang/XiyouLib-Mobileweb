@@ -20,11 +20,6 @@
     font-size: 12px;
 }
 
-.login .submit {
-    text-align: center;
-    padding: 5px 8px 5px 8px;
-}
-
 /*.login end.*/
 
 /*=main.html页面的css样式设置=*/
@@ -39,7 +34,6 @@
 }
 
 .content label {
-    text-overflow: ellipsis;
     display: inline-block;
     padding: 0 5px;
     margin: 0;
@@ -169,3 +163,20 @@
 }
 
 /*....reading  end....*/
+
+/*=moreInfo.html页面的css样式设置=*/
+.cirInfo, .absInfo, .relInfo,.basicInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+/*==#moreInfo部分==*/
+
+/*==#circulation部分==*/
+
+/*==#abstract部分==*/
+
+/*==#related部分==*/
+
+

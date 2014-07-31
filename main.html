@@ -46,9 +46,9 @@
 
         <div data-role="navbar">
             <ul>
-                <li><a href="#" class="ui-btn-active" data-transition="slide">已借图书</a></li>
-                <li><a href="#searchPage" data-transition="slide">搜索</a></li>
-                <li><a href="#favouritePage" data-transition="slide">收藏夹</a></li>
+                <li><a href="#" class="ui-btn-active" data-transition="slide" id="rent">已借图书</a></li>
+                <li><a href="#searchPage" data-transition="slide" id="seek">搜索</a></li>
+                <li><a href="#favouritePage" data-transition="slide" id="fav">收藏夹</a></li>
             </ul>
         </div>
     </div>
@@ -56,27 +56,7 @@
         <h3>您借阅的图书如下</h3>
 
         <div class="bookInfo">
-           <!-- <div class="y_books">
-                <div class="y_books-header">
-                    <p>
-                        <a href="moreInfo.html" data-rel="external" data-ajax="false">图书详情</a>
-                    </p>
-                </div>
-                <div class="y_books-body">
-                    <p>书名:<label>123</label></p>
 
-                    <p>书号:<label>11123</label></p>
-
-                    <p>到期时间:<label class="y_books-body-deadline">123</label></p>
-
-                    <p class="y_books-body-borrow">
-                        <a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a>
-                    </p>
-                </div>
-                <div class="y_books-footer">
-
-                </div>
-            </div>-->
         </div>
         <div data-role="footer" data-position="fixed">
             <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
@@ -157,24 +137,7 @@
         <h3>您收藏的图书如下</h3>
 
         <div class="favInfo">
-            <div class="y_books">
-                <div class="y_books-header">
-                    <p>
-                        <a href="moreInfo.html" data-rel="external" data-ajax="false">图书详情</a>
-                    </p>
-                </div>
-                <div class="y_books-body">
-                    <p><img src="" width="60px" height="60px">
-                        书名:<label></label></p>
 
-                    <p>图书馆索书号:<label></label></p>
-
-                    <p>作者:<label></label></p>
-
-                    <p class="m_favourite"><a href="" data-role="button" data-icon="star" data-inline="true"
-                                              class="content_btn">从收藏夹移除</a></p>
-                </div>
-            </div>
         </div>
     </div>
     <div data-role="footer" data-position="fixed">
@@ -194,6 +157,8 @@
 <script src="js/vendor/jquery-1.11.1.js"></script>
 <script src="js/vendor/jquery.mobile-1.4.2.js"></script>
 <script src="js/plugins.js"></script>
+<script src="js/mine/base.js"></script>
+<script src="js/mine/user.js"></script>
 <script src="js/main.js"></script>
 
 

@@ -112,6 +112,9 @@ ul {
     text-align: center;
     height: 20px;
 }
+/*.focus{
+
+}*/
 /*覆盖框架默认的一些样式*/
 .ui-navbar {
     border-top: 2px solid #ffffff;

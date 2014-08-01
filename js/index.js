@@ -4,7 +4,7 @@
 
 $(function () {
     /*点击登录按钮时触发*/
-    $('.submit').on("click", function () {
+    $('.submit').on("click tap", function () {
         if (valid()) {
             var data = $("form#loginForm").serialize();
             var apiName = 'login';

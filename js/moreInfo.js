@@ -114,7 +114,8 @@ $(function () {
                                 alert('亲，服务器实在是太忙了！');
                         }
                     } else {
-                        alert('亲，服务器实在是太忙了！');
+                        alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+                        window.location.href = "index.html";
                     }
                 });
             });
@@ -162,7 +163,8 @@ $(function () {
             });
             $('.relInfo').append(html).trigger('create');//加载框架的样式
         } else {
-            alert('亲，不好意思，服务器实在是太忙了！');
+            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+            window.location.href = "index.html";
         }
     });
 });

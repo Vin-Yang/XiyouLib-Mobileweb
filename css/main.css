@@ -116,8 +116,9 @@
 }
 
 #search .searchButton, .searchButton .ui-btn {
-    padding: 3px 10px 3px 10px;
-    margin: 0;
+    padding: 5px 30px;
+    margin: 0 auto;
+    width: 15%;
 }
 
 #searchButton {
@@ -143,6 +144,27 @@
     -webkit-border-radius: 5px;
 }
 
+.bar {
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.bar label,.bar a{
+    font-size: 12px;
+}
+/*.bar a {
+    font-size: 12px;
+}*/
+.bar span a{
+    color: #FD0000;
+    font-size: 14px;
+}
+
+.blue {
+    color: #3388CC;
+}
+
 /*....search  end....*/
 
 /*==#favouritePage部分==*/
@@ -165,7 +187,7 @@
 /*....reading  end....*/
 
 /*=moreInfo.html页面的css样式设置=*/
-.cirInfo, .absInfo, .relInfo,.basicInfo {
+.cirInfo, .absInfo, .relInfo, .basicInfo {
     border-radius: 5px;
     padding: 10px;
     background: #f0f0f0;

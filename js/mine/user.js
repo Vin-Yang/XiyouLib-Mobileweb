@@ -2,7 +2,7 @@
  * Created by 文鹏 on 2014/7/30.
  */
 (function () {
-    var host = "http://localhost:18000";
+    var host = "http://172.20.0.20:18000";
     base().setHost(host);
     /*构造函数*/
     User = function () {

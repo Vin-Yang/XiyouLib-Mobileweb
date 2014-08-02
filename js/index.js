@@ -4,29 +4,20 @@
 
 $(function () {
     /*点击登录按钮时触发*/
-    $('.submit').on("click tap", function () {
-        if (valid()) {
+    $('.submit').on("click", function () {
+        if ($('#username').val() != '' && $('#password').val() != '') {
             var data = $("form#loginForm").serialize();
             var apiName = 'login';
             user().Api(apiName, data, function (returnData) {
                 if (returnData.Result) {
                     var Session = returnData.Detail;
                     window.location.href = "main.html?session=" + Session;
+                } else {
+                    alert('亲，账号或密码错了哦！');
                 }
             });
-        }else{
-            alert('亲，账号或密码错了哦！');
+        } else {
+            alert('亲，用户名密码不能为空哦！');
         }
     });
-    function valid() {
-        if ($('#username').val() == '') {
-            alert("用户名不能为空!");
-            return false;
-        } else if ($('#password').val() == '') {
-            alert("密码不能为空!");
-            return false;
-        } else {
-            return true;
-        }
-    }
 });

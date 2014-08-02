@@ -79,40 +79,30 @@
         </div>
     </div>
     <div data-role="content" class="content">
-        <form method="post" id="search">
-            <div data-role="fieldcontain">
-                <input type="search" name="searchBox" id="searchBox">
 
-                <p class="searchButton"><input type="submit" data-inline="true" id="searchButton" value="搜索"></p>
-            </div>
-        </form>
+        <input type="search" id="searchBox">
+
+        <p class="searchButton">
+            <input type="button" value="搜素">
+        </p>
 
         <div id="searchResult">
-            <h3>搜索结果如下</h3>
 
             <div class="searchInfo">
-                <div class="y_books">
-                    <div class="y_books-header">
-                        <p>
-                            <a href="moreInfo.html" data-rel="external" data-ajax="false">图书详情</a>
-                        </p>
-                    </div>
-                    <div class="y_books-body">
-                        <p><label>《21天突破java》</label></p>
-                    </div>
+
+            </div>
+            <div id="readingList">
+                <h3>借阅排行</h3>
+
+                <div class="readingInfo">
+                    <ol data-role="listview" id="list">
+                        <li><a href="moreInfo.html" data-rel="external" data-ajax="false">test1</a></li>
+                        <li><a href="moreInfo.html" data-rel="external" data-ajax="false">test1</a></li>
+                    </ol>
                 </div>
             </div>
         </div>
-        <div id="readingList">
-            <h3>借阅排行</h3>
 
-            <div class="readingInfo">
-                <ol data-role="listview" id="list">
-                    <li><a href="moreInfo.html" data-rel="external" data-ajax="false">test1</a></li>
-                    <li><a href="moreInfo.html" data-rel="external" data-ajax="false">test1</a></li>
-                </ol>
-            </div>
-        </div>
     </div>
     <div data-role="footer" data-position="fixed">
         <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
@@ -145,6 +135,16 @@
     </div>
 </div>
 
+<!--排行结果对话框-->
+<div data-role="page" id="readingDialog">
+    <div data-role="header">
+        <h3>借阅排行</h3>
+    </div>
+    <div data-role="content">
+
+    </div>
+</div>
+
 
 <!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
 <!--
@@ -159,6 +159,7 @@
 <script src="js/plugins.js"></script>
 <script src="js/mine/base.js"></script>
 <script src="js/mine/user.js"></script>
+<script src="js/mine/book.js"></script>
 <script src="js/main.js"></script>
 
 

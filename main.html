@@ -17,6 +17,7 @@
     <title>西邮图书馆</title>
     <meta name="description" content="西邮图书馆，西邮3G实验室，西安邮电大学">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!--
@@ -40,17 +41,9 @@
 <!--用户已借图书页面-->
 <div data-role="page" id="borrowPage" data-title="已借图书">
     <div data-role="header" data-position="fixed" class="header">
-        <h1>欢迎<span class="name"></span>同学</h1>
+        <h1><span class="name"></span></h1>
         <a href="#" data-icon="home" data-inline="true" class="controlBtn">主页</a>
         <a href="index.html" data-icon="back" data-inline="true" class="controlBtn" data-ajax="false">退出</a>
-
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#" class="ui-btn-active" data-transition="slide" id="rent">已借图书</a></li>
-                <li><a href="#searchPage" data-transition="slide" id="seek">搜索</a></li>
-                <li><a href="#favouritePage" data-transition="slide" id="fav">收藏夹</a></li>
-            </ul>
-        </div>
     </div>
     <div data-role="content" class="content">
         <h3>您借阅的图书如下</h3>
@@ -58,8 +51,15 @@
         <div class="bookInfo">
 
         </div>
-        <div data-role="footer" data-position="fixed">
-            <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#borrowPage" class="ui-btn-active" data-transition="slide">已借图书</a></li>
+                <li><a href="#searchPage" data-transition="slide">搜索</a></li>
+                <li><a href="#favouritePage" data-transition="slide">收藏夹</a></li>
+            </ul>
         </div>
     </div>
 </div>
@@ -69,27 +69,19 @@
     <div data-role="header" data-position="fixed" class="header">
         <h1>欢迎<span class="name"></span>同学</h1>
         <a href="#borrowPage" data-icon="home" data-inline="true" class="controlBtn">主页</a>
-
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#borrowPage" data-transition="slide">已借图书</a></li>
-                <li><a href="#" class="ui-btn-active" data-transition="slide">搜索</a></li>
-                <li><a href="#favouritePage" data-transition="slide">收藏夹</a></li>
-            </ul>
-        </div>
     </div>
     <div data-role="content" class="content">
 
         <input type="search" id="searchBox">
 
         <p class="searchButton">
-            <input type="button" value="搜素">
+            <input type="button" value="搜索">
         </p>
 
         <div id="searchResult">
 
             <div class="searchInfo">
-
+                亲，您还没有搜索内容哦！
             </div>
             <div id="readingList">
                 <h3>借阅排行</h3>
@@ -105,23 +97,21 @@
 
     </div>
     <div data-role="footer" data-position="fixed">
-        <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#borrowPage" data-transition="slide">已借图书</a></li>
+                <li><a href="#searchPage" class="ui-btn-active" data-transition="slide">搜索</a></li>
+                <li><a href="#favouritePage" data-transition="slide">收藏夹</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
 <!--用户收藏页面-->
 <div data-role="page" id="favouritePage" data-title="图书收藏">
-    <div data-role="header" data-position="fixed" class="header">
+    <div data-role="header" data-position="fixed"  class="header">
         <h1>欢迎<span class="name"></span>同学</h1>
         <a href="#borrowPage" data-icon="home" data-inline="true" class="controlBtn">主页</a>
-
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#borrowPage" data-transition="slide">已借图书</a></li>
-                <li><a href="#searchPage" data-transition="slide">搜索</a></li>
-                <li><a href="#" class="ui-btn-active" data-transition="slide">收藏夹</a></li>
-            </ul>
-        </div>
     </div>
     <div data-role="content" class="content">
         <h3>您收藏的图书如下</h3>
@@ -131,17 +121,13 @@
         </div>
     </div>
     <div data-role="footer" data-position="fixed">
-        <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
-    </div>
-</div>
-
-<!--排行结果对话框-->
-<div data-role="page" id="readingDialog">
-    <div data-role="header">
-        <h3>借阅排行</h3>
-    </div>
-    <div data-role="content">
-
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#borrowPage" data-transition="slide">已借图书</a></li>
+                <li><a href="#searchPage" data-transition="slide">搜索</a></li>
+                <li><a href="#favouritePage" class="ui-btn-active" data-transition="slide">收藏夹</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 

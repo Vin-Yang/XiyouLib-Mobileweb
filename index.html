@@ -17,6 +17,10 @@
     <title>西邮图书馆</title>
     <meta name="description" content="西邮图书馆，西邮3G实验室，西安邮电大学">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-startup-image" href="img/loading.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114X114" href="img/iphone.png">
+    <link rel="apple-touch-icon-precomposed" href="img/android.png">
 
     <!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
     <!--
@@ -38,12 +42,12 @@
 <![end if]-->
 
 <!--登陆页面-->
-<div data-role="page">
-    <div data-role="header" data-position="fixed" id="header">
-        <span class="logo"><img src="img/logo.png"></span>
-
-        <h1>西邮图书馆</h1>
-
+<div data-role="page" data-theme="a">
+    <div data-role="header"  data-position="fixed" id="header">
+        <h1>
+            <span class="logo"><img src="img/logo.png"></span>
+            西邮图书馆
+        </h1>
     </div>
     <div data-role="content" id="content">
         <p class="aboutUs"><a href="#">关于我们</a></p>

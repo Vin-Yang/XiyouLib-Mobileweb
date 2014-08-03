@@ -90,10 +90,11 @@ textarea {
 body{
     font-family: "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
 }
+.ui-title{
+    padding: 5px 0;
+}
 .logo{
-    float: left;
-    padding-left: 100px;
-    margin-top: 3px;
+    padding: 0 15px 0 0;
 }
 .aboutUs{
     text-align: right;

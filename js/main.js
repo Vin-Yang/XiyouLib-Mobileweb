@@ -19,8 +19,9 @@ $(function () {
         if (returnData.Result) {
             var Name = returnData.Detail.Name;
             var username = returnData.Detail.ID;
+            var department = returnData.Detail.Department;
             var html = '';
-            html += Name;
+            html += department +' '+ Name;
             $('.name').append(html).attr('data-username', username);
         } else {
             alert('亲，不好意思，您的登录已经过期，请重新登陆!');
@@ -70,6 +71,7 @@ $(function () {
             $('.bookInfo').append(html).trigger('create');
             var temp = [];
             var tempElement = $('.y_books-body-borrow');
+            /*统计需要续借的书的必要信息*/
             $.each(tempElement, function (index, value) {
                 temp[index] = {
                     'session': Session,
@@ -78,6 +80,7 @@ $(function () {
                     'library_id': $(value).attr('data-library_id')
                 };
             });
+            /*绑定续借事件*/
             $.each(tempElement, function (index, value) {
                 $(this).on("click", "a", function () {
                     apiName = 'renew';
@@ -211,7 +214,7 @@ $(function () {
                                     html += '<div class="y_books"> ' +
                                         '<div class="y_books-header"> ' +
                                         '<p> ' +
-                                        '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                                        '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +
                                         '</p> ' +
                                         '</div> ' +
                                         '<div class="y_books-body"> ' +

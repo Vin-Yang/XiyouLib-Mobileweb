@@ -155,11 +155,11 @@
     text-align: center;
 }
 
-.bar label,.bar a{
+.bar label, .bar a {
     font-size: 12px;
 }
 
-.bar span a{
+.bar span a {
     color: #FD0000;
     font-size: 14px;
 }
@@ -169,6 +169,17 @@
 }
 
 /*....search  end....*/
+
+/*...bookList start...*/
+.bookList {
+    margin: 20px 0 0;
+}
+
+.bookList h3 {
+    padding: 0;
+}
+
+/*...bookList end...*/
 
 /*==#favouritePage部分==*/
 /*....favourite  start....*/
@@ -188,6 +199,16 @@
 }
 
 /*....reading  end....*/
+
+/*==#historyPage部分==*/
+/*....history  start....*/
+.historyInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+/*....history  end....*/
 
 /*=moreInfo.html页面的css样式设置=*/
 .cirInfo, .absInfo, .relInfo, .basicInfo {

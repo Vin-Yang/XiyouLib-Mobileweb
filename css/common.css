@@ -94,7 +94,7 @@ body{
     padding: 5px 0;
 }
 .logo{
-    padding: 0 15px 0 0;
+    padding: 0 5% 0 0;
 }
 .aboutUs{
     text-align: right;
@@ -113,9 +113,11 @@ ul {
     text-align: center;
     height: 20px;
 }
-/*.focus{
-
-}*/
+.focus{
+    background: #3388CC !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
 /*覆盖框架默认的一些样式*/
 .ui-navbar {
     border-top: 2px solid #ffffff;

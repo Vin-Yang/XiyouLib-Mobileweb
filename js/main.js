@@ -21,7 +21,7 @@ $(function () {
             var username = returnData.Detail.ID;
             var department = returnData.Detail.Department;
             var html = '';
-            html += department +' '+ Name;
+            html += department + ' ' + Name;
             $('.name').append(html).attr('data-username', username);
         } else {
             alert('亲，不好意思，您的登录已经过期，请重新登陆!');
@@ -44,8 +44,7 @@ $(function () {
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p>书名:<label>《' + value.Title + '》</label></p> ' +
-                        '<p>书号:<label>' + value.Barcode + '</label></p> ' +
+                        '<p><label class="blue">《' + value.Title + '》</label></p> ' +
                         '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p> ' +
                         '<p class="y_books-body-borrow" data-barcode="' + value.Barcode + '" data-department_id="' + value.Department_id + '" data-library_id="' + value.Library_id + '"> ' +
                         '<a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a> ' +
@@ -60,8 +59,7 @@ $(function () {
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p>书名:<label>《' + value.Title + '》</label></p>  ' +
-                        '<p>书号:<label>' + value.Barcode + '</label></p>  ' +
+                        '<p><label class="blue">《' + value.Title + '》</label></p>  ' +
                         '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p>  ' +
                         '<p>状态:<label class="y_books-body-deadline">' + value.State + '</label></p> ' +
                         '</div> ' +
@@ -102,6 +100,70 @@ $(function () {
         }
     });
 
+    /*搜索图书信息*/
+    $('.searchButton').on("click", "input", function () {
+        var temp = $('#searchBox').val().trim();
+        if (temp != '') {
+            $('.bookList').hide();
+            $('.searchInfo').prevUntil().remove();
+            $('.searchInfo').empty();
+            apiName = 'search';
+            data = {
+                keyword: temp
+            };
+            book().Api(apiName, data, function (returnData) {
+                    if (returnData.Result) {
+                        var searchInfo = returnData.Detail.BookData;
+                        var html = '';
+                        var temp = $('.searchInfo');
+                        if (temp) {
+                            html += '<div class="bar"> ' +
+                                '<div class="fl"> ' +
+                                '<label>第<span class="blue" id="currentPage">' + returnData.Detail.CurrentPage + '</span>页</label>/' +
+                                '<label>共<span class="blue" id="pages">' + returnData.Detail.Pages + '</span>页</label> ' +
+                                '</div> ' +
+                                '<span id="remove"><a>清除结果</a></span>' +
+                                '<div class="fr"> ' +
+                                '<a class="start">首页 </a>' +
+                                '<a class="next">下一页 </a>' +
+                                '<a class="before">上一页 </a>' +
+                                '</div> ' +
+                                '</div>';
+                            temp.before(html).trigger('create');//在searchInfo之前插入内容
+                            $('#remove').on("click", "a", function () {
+                                $('.searchInfo').prevUntil().remove();
+                                $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
+                                $('.bookList').show();
+                            });
+                        }
+                        html = '';
+                        $.each(searchInfo, function (index, value) {
+                                html += '<div class="y_books"> ' +
+                                    '<div class="y_books-header"> ' +
+                                    '<p> ' +
+                                    '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +
+                                    '</p> ' +
+                                    '</div> ' +
+                                    '<div class="y_books-body"> ' +
+                                    '<p><label class="blue">《' + value.Title + '》</label></p> ' +
+                                    '</div> ' +
+                                    '</div>';
+
+                            }
+                        );
+                        temp.append(html).trigger('create');
+                    } else {
+                        alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+                        window.location.href = "index.html";
+                    }
+                }
+            );
+        }
+        else {
+            alert('关键字不能为空哦！');
+        }
+    });
+
     /*请求收藏信息*/
     apiName = 'favorite';
     user().Api(apiName, data, function (returnData) {
@@ -119,7 +181,7 @@ $(function () {
                     '</div> ' +
                     '<div class="y_books-body"> ' +
                     '<p>' +
-                    '书名:<label>《' + value.Title + '》</label>' +
+                    '<label class="blue">《' + value.Title + '》</label>' +
                     '</p>  ' +
                     '<p>图书馆索书号:<label>' + value.Sort + '</label></p>  ' +
                     '<p>作者:<label>' + value.Author + '</label></p>  ' +
@@ -173,65 +235,37 @@ $(function () {
 
     });
 
-    /*搜索图书信息*/
-    apiName = 'search';
-    $('.searchButton').on("click", function () {
-            $('#readingList').hide();
-            var temp = $('#searchBox').val();
-            if (temp != '') {
-                $('.searchInfo').prevUntil().remove();
-                $('.searchInfo').empty();
-                var data = {
-                    keyword: temp
-                };
-                book().Api(apiName, data, function (returnData) {
-                        if (returnData.Result) {
-                            var searchInfo = returnData.Detail.BookData;
-                            var html = '';
-                            var temp = $('.searchInfo');
-                            if (temp) {
-                                html += '<div class="bar"> ' +
-                                    '<div class="fl"> ' +
-                                    '<label>第<span class="blue" id="currentPage">' + returnData.Detail.CurrentPage + '</span>页</label>/' +
-                                    '<label>共<span class="blue" id="pages">' + returnData.Detail.Pages + '</span>页</label> ' +
-                                    '</div> ' +
-                                    '<span id="remove"><a>清除结果</a></span>' +
-                                    '<div class="fr"> ' +
-                                    '<a class="start">首页 </a>' +
-                                    '<a class="next">下一页 </a>' +
-                                    '<a class="before">上一页 </a>' +
-                                    '</div> ' +
-                                    '</div>';
-                                temp.before(html).trigger('create');//在searchInfo之前插入内容
-                                $('#remove').on("click", "a", function () {
-                                    $('.searchInfo').prevUntil().remove();
-                                    $('.searchInfo').empty();
-                                    $('#readingList').show();
-                                });
-                            }
-                            html = '';
-                            $.each(searchInfo, function (index, value) {
-                                    html += '<div class="y_books"> ' +
-                                        '<div class="y_books-header"> ' +
-                                        '<p> ' +
-                                        '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +
-                                        '</p> ' +
-                                        '</div> ' +
-                                        '<div class="y_books-body"> ' +
-                                        '<p><label>《' + value.Title + '》</label></p> ' +
-                                        '</div> ' +
-                                        '</div>';
-
-                                }
-                            );
-                            temp.append(html).trigger('create');
-                        }
-                    }
-                );
-            }
-            else {
-                alert('关键字不能为空哦！');
-            }
+    /*请求借阅历史信息*/
+    apiName = 'history';
+    user().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var rentInfo = returnData.Detail;
+            var html = '';
+            $.each(rentInfo, function (index, value) {
+                html += '<div class="y_books"> ' +
+                    '<div class="y_books-header"> ' +
+                    '<p> ' +
+                    '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                    '</p> ' +
+                    '</div> ' +
+                    '<div class="y_books-body"> ' +
+                    '<p>' +
+                    '<label class="blue">《' + value.Title + '》</label>' +
+                    '</p>  ' +
+                    '<p>' +
+                    '借书时间:<label>' + value.Date + '</label>' +
+                    '</p>  ' +
+                    '<p>' +
+                    '操作类型:<label>' + value.Type + '</label>' +
+                    '</p>  ' +
+                    '</div> ' +
+                    '</div>';
+            });
+            $('.historyInfo').append(html).trigger('create');//加载框架的样式
+        } else {
+            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+            window.location.href = "index.html";
         }
-    );
+
+    });
 });

@@ -21,6 +21,7 @@ $(function () {
     /*获取图书详情*/
     var apiName;
     var data;
+    /*选择哪种方式去查找详情*/
     if (Id != null && Barcode == null) {
         apiName = 'detailById';
         data = Id;
@@ -28,6 +29,7 @@ $(function () {
         apiName = 'detailByBarcode';
         data = Barcode;
     }
+    /*请求图书详情*/
     book().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
             var html = '';
@@ -38,29 +40,111 @@ $(function () {
             var sort = returnData.Detail.Sort;//图书馆索书号
             var author = returnData.Detail.Author;//作者
             var isbn = returnData.Detail.ISBN;//标准号
-            var pub = returnData.Detail.Pub;//出版社
+            var Pub = returnData.Detail.Pub;//出版社
             var id = returnData.Detail.ID;//图书馆内控制号
-            /*有豆瓣时提供的信息*/
+            var Pages = returnData.Detail.Form;//书的页数
+            var Summary = returnData.Detail.Summary;//图书摘要
+            var favTimes = returnData.Detail.FavTimes;//收藏次数
+            var subject = returnData.Detail.Subject;//主题分类
+            var total = returnData.Detail.Total;//藏书总数
+            var rentTimes = returnData.Detail.RentTimes;//数
+            var available = returnData.Detail.Available;//可借书数
+            var browseTimes = returnData.Detail.BrowseTimes;//可借书数
+
+            /*必须有豆瓣时可以额外提供的信息*/
             var img;//图片
-            var summary;//摘要
             var price;//价格
-            var pages;//书的页数
             var binding;//装订
             var pubDate;//出版日期
+
+            /*需要择优选择信息*/
+            var pages;
+            var summary;
+            var pub;
+
+            /*对返回的数据进行容错判断*/
             if (returnData.Detail.DoubanInfo != null) {
-                img = returnData.Detail.DoubanInfo.Images.medium;
-                summary = returnData.Detail.DoubanInfo.Summary;
-                price = returnData.Detail.DoubanInfo.Price;
-                pages = returnData.Detail.DoubanInfo.Pages;
-                binding = returnData.Detail.DoubanInfo.Binding;
-                pubDate = returnData.Detail.DoubanInfo.PubDate;
+                /*关于图书图片的情况判定*/
+                if (returnData.Detail.DoubanInfo.Images == '' || returnData.Detail.DoubanInfo.Images == undefined || returnData.Detail.DoubanInfo.Images == null) {
+                    img = 'http://img3.douban.com/pics/book-default-medium.gif';
+                } else {
+                    img = returnData.Detail.DoubanInfo.Images.medium;
+                }
+                /*关于图书价格的情况判定*/
+                if (returnData.Detail.DoubanInfo.Price == '' || returnData.Detail.DoubanInfo.Price == undefined || returnData.Detail.DoubanInfo.Price == null) {
+                    price = '暂无';
+                } else {
+                    price = returnData.Detail.DoubanInfo.Price;
+                }
+
+                /*关于图书装订的情况判定*/
+                if (returnData.Detail.DoubanInfo.Binding == '' || returnData.Detail.DoubanInfo.Binding == undefined || returnData.Detail.DoubanInfo.Binding == null) {
+                    binding = '暂无';
+                } else {
+                    binding = returnData.Detail.DoubanInfo.Binding;
+                }
+
+                /*关于图书出版日期的情况判定*/
+                if (returnData.Detail.DoubanInfo.PubDate == '' || returnData.Detail.DoubanInfo.PubDate == undefined || returnData.Detail.DoubanInfo.PubDate == null) {
+                    pubDate = '暂无';
+                } else {
+                    pubDate = returnData.Detail.DoubanInfo.PubDate;
+                }
+
+                /*关于摘要的情况判定*/
+                if (returnData.Detail.DoubanInfo.Subarray == '' || returnData.Detail.DoubanInfo.Subarray == undefined || returnData.Detail.DoubanInfo.Subarray == null) {
+                    if (Summary != '' && Summary != undefined && Summary != null) {
+                        summary = Summary;
+                    } else {
+                        summary = '抱歉亲，此书暂时还没有摘要呢！';
+                    }
+                } else {
+                    summary = returnData.Detail.DoubanInfo.Summary;
+                }
+
+                /*关于书的页数情况判定*/
+                if (returnData.Detail.DoubanInfo.Pages == '' || returnData.Detail.DoubanInfo.Pages == undefined || returnData.Detail.DoubanInfo.Pages == null) {
+                    if (Pages != '' && Pages != undefined && Pages != null) {
+                        pages = Pages;
+                    } else {
+                        pages = '暂无';
+                    }
+                } else {
+                    pages = returnData.Detail.DoubanInfo.Pages;
+                }
+
+                /*关于图书出版社情况判定*/
+                if (returnData.Detail.DoubanInfo.Publisher == '' || returnData.Detail.DoubanInfo.Publisher == undefined || returnData.Detail.DoubanInfo.Publisher == null) {
+                    if (Pub != '' && Pub != undefined && Pub != null) {
+                        pub = Pub;
+                    } else {
+                        pub = '暂无';
+                    }
+                } else {
+                    pub = returnData.Detail.DoubanInfo.Publisher;
+                }
+            
             } else {
                 img = 'http://img3.douban.com/pics/book-default-medium.gif';
-                summary = '抱歉亲，此书暂时还没有摘要呢！';
                 price = '暂无';
-                pages = '暂无';
                 binding = '暂无';
                 pubDate = '暂无';
+                if (Summary != '' && Summary != undefined && Summary != null) {
+                    summary = Summary;
+                } else {
+                    summary = '抱歉亲，此书暂时还没有摘要呢！';
+                }
+                if (Pages != '' && Pages != undefined && Pages != null) {
+                    pages = Pages;
+                } else {
+                    pages = '暂无';
+                }
+
+                if (Pub != '' && Pub != undefined && Pub != null) {
+                    pub = Pub;
+                } else {
+                    pub = '暂无';
+                }
             }
             html = '';
             html += '<div class="y_books"> ' +
@@ -69,7 +153,7 @@ $(function () {
                 '</div> ' +
                 '<div class="y_books-body"> ' +
                 '<p><img src="' + img + '" width="60px" height="60px"> ' +
-                '书名:<label>《' + title + '》</label></p>  ' +
+                '<label class="blue">《' + title + '》</label></p>  ' +
                 '<p>图书馆索书号:<label>' + sort + '</label></p>  ' +
                 '<p>作者:<label>' + author + '</label></p>  ' +
                 '<p>页数:<label>' + pages + '</label></p>  ' +
@@ -155,9 +239,15 @@ $(function () {
             html = '';
             $.each(ReferBooks, function (index, value) {
                 html += '<div class="y_books"> ' +
+                    '<div class="y_books-header"> ' +
+                    '<p> ' +
+                    '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                    '</p> ' +
+                    '</div> ' +
                     '<div class="y_books-body"> ' +
-                    '<p>书名:<label>《' + value.Title + '》</label></p>  ' +
+                    '<p><label class="blue">《' + value.Title + '》</label></p>  ' +
                     '<p>作者:<label>' + value.Author + '</label></p>  ' +
+                    '<p>控制号:<label>' + value.ID + '</label></p>  ' +
                     '</div> ' +
                     '</div> '
             });

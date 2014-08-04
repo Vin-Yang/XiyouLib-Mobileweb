@@ -40,12 +40,13 @@ $(function () {
                     html += '<div class="y_books"> ' +
                         '<div class="y_books-header"> ' +
                         '<p> ' +
-                        '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
                         '<p><label class="blue">《' + value.Title + '》</label></p> ' +
-                        '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p>到期时间:<label class="y_books-body-deadline">' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '</label></p> ' +
                         '<p class="y_books-body-borrow" data-barcode="' + value.Barcode + '" data-department_id="' + value.Department_id + '" data-library_id="' + value.Library_id + '"> ' +
                         '<a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a> ' +
                         '</p> ' +
@@ -55,11 +56,12 @@ $(function () {
                     html += '<div class="y_books"> ' +
                         '<div class="y_books-header"> ' +
                         '<p> ' +
-                        '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p><label class="blue">《' + value.Title + '》</label></p>  ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label></p>  ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p>  ' +*/
                         '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p>  ' +
                         '<p>状态:<label class="y_books-body-deadline">' + value.State + '</label></p> ' +
                         '</div> ' +
@@ -141,11 +143,12 @@ $(function () {
                                 html += '<div class="y_books"> ' +
                                     '<div class="y_books-header"> ' +
                                     '<p> ' +
-                                    '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +
+                                    /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
                                     '</p> ' +
                                     '</div> ' +
                                     '<div class="y_books-body"> ' +
-                                    '<p><label class="blue">《' + value.Title + '》</label></p> ' +
+                                    '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
+                                    /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
                                     '</div> ' +
                                     '</div>';
 
@@ -176,12 +179,13 @@ $(function () {
                 html += '<div class="y_books"> ' +
                     '<div class="y_books-header"> ' +
                     '<p> ' +
-                    '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                    /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
                     '</p> ' +
                     '</div> ' +
                     '<div class="y_books-body"> ' +
                     '<p>' +
-                    '<label class="blue">《' + value.Title + '》</label>' +
+                    '<label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
+                    /*'<label class="blue">《' + value.Title + '》</label>' +*/
                     '</p>  ' +
                     '<p>图书馆索书号:<label>' + value.Sort + '</label></p>  ' +
                     '<p>作者:<label>' + value.Author + '</label></p>  ' +
@@ -245,12 +249,13 @@ $(function () {
                 html += '<div class="y_books"> ' +
                     '<div class="y_books-header"> ' +
                     '<p> ' +
-                    '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                    /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
                     '</p> ' +
                     '</div> ' +
                     '<div class="y_books-body"> ' +
                     '<p>' +
-                    '<label class="blue">《' + value.Title + '》</label>' +
+                    '<label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
+                    /*'<label class="blue">《' + value.Title + '》</label>' +*/
                     '</p>  ' +
                     '<p>' +
                     '借书时间:<label>' + value.Date + '</label>' +

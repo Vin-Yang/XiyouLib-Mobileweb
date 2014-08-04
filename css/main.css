@@ -10,7 +10,7 @@
     margin-bottom: 30px;
 }
 
-.login p, input, a {
+.login p, input {
     font-size: 13px;
     margin-bottom: 15px;
 }
@@ -40,7 +40,7 @@
 
 .content label {
     display: inline-block;
-    padding: 0 5px;
+    padding: 0 0 0 5px;
     margin: 0;
 }
 
@@ -71,18 +71,22 @@
 }
 
 /*去掉框架的默认css样式*/
-.y_books-header .ui-link {
+/*.y_books-header .ui-link {
     color: #ffffff !important;
     font-size: 12px !important;
     font-weight: normal;
     margin: 0 5px 0 0;
     text-shadow: none;
-}
+}*/
 
 /*end*/
 
 .y_books-body {
     padding: 10px 20px;
+}
+
+.y_books-body a {
+    font-weight: normal;
 }
 
 .y_books-body-borrow {
@@ -220,6 +224,13 @@
 /*==#moreInfo部分==*/
 
 /*==#circulation部分==*/
+.green {
+    color: #52B54C;
+}
+
+.yellow {
+    color: #E5A85E;
+}
 
 /*==#abstract部分==*/
 

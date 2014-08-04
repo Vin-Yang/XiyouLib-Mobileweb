@@ -152,8 +152,8 @@ $(function () {
                 '<p class="h20"></p> ' +
                 '</div> ' +
                 '<div class="y_books-body"> ' +
-                '<p><img src="' + img + '" width="60px" height="60px"> ' +
-                '<label class="blue">《' + title + '》</label></p>  ' +
+                '<p><img src="' + img + '" width="60"</p>' +
+                '<p><label class="blue">《' + title + '》</label></p>  ' +
                 '<p>图书馆索书号:<label>' + sort + '</label></p>  ' +
                 '<p>作者:<label>' + author + '</label></p>  ' +
                 '<p>页数:<label>' + pages + '</label></p>  ' +
@@ -210,7 +210,7 @@ $(function () {
             $.each(CirculationInfo, function (index, value) {
                 if (value.Date != null) {
                     html += '<div class="y_books"> ' +
-                        '<div class="y_books-body"> ' +
+                        '<div class="y_books-body yellow"> ' +
                         '<p>条码:<label>' + value.Barcode + '</label></p>  ' +
                         '<p>状态:<label>' + value.Status + '</label></p>  ' +
                         '<p>所在书库:<label>' + value.Department + '</label></p>  ' +
@@ -219,7 +219,7 @@ $(function () {
                         '</div> ';
                 } else {
                     html += '<div class="y_books"> ' +
-                        '<div class="y_books-body"> ' +
+                        '<div class="y_books-body green"> ' +
                         '<p>条码:<label>' + value.Barcode + '</label></p>  ' +
                         '<p>状态:<label>' + value.Status + '</label></p>  ' +
                         '<p>所在书库:<label>' + value.Department + '</label></p>  ' +
@@ -237,15 +237,16 @@ $(function () {
             /*绑定相关图书*/
             var ReferBooks = returnData.Detail.ReferBooks;
             html = '';
-            $.each(ReferBooks, function (index, value) {
+            $.each(ReferBooks, function (index, value)  {
                 html += '<div class="y_books"> ' +
                     '<div class="y_books-header"> ' +
                     '<p> ' +
-                    '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +
+                    /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
                     '</p> ' +
                     '</div> ' +
                     '<div class="y_books-body"> ' +
-                    '<p><label class="blue">《' + value.Title + '》</label></p>  ' +
+                    '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">'+value.Title +'</a> '+ '》</label></p>  ' +
+                    /*'<p><label class="blue">《' + value.Title + '》</label></p>  ' +*/
                     '<p>作者:<label>' + value.Author + '</label></p>  ' +
                     '<p>控制号:<label>' + value.ID + '</label></p>  ' +
                     '</div> ' +

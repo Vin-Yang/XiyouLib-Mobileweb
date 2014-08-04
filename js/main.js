@@ -44,9 +44,9 @@ $(function () {
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p><label class="blue">《' + value.Title + '》</label></p> ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">'+ value.Title+'</a> ' + '》</label></p> ' +
                         /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
-                        '<p>到期时间:<label class="y_books-body-deadline">' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '</label></p> ' +
+                        '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p> ' +
                         '<p class="y_books-body-borrow" data-barcode="' + value.Barcode + '" data-department_id="' + value.Department_id + '" data-library_id="' + value.Library_id + '"> ' +
                         '<a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a> ' +
                         '</p> ' +
@@ -60,7 +60,7 @@ $(function () {
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label></p>  ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">'+ value.Title+'</a> ' + '》</label></p>  ' +
                         /*'<p><label class="blue">《' + value.Title + '》</label></p>  ' +*/
                         '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p>  ' +
                         '<p>状态:<label class="y_books-body-deadline">' + value.State + '</label></p> ' +
@@ -88,7 +88,7 @@ $(function () {
                     user().Api(apiName, data, function (returnData) {
                         if (returnData.Result) {
                             console.log(returnData.Detail);
-                            $(value).parent().find('p').eq(2).replaceWith('<p>到期时间:<label class="y_books-body-deadline">' + returnData.Detail + '</label></p>');
+                            $(value).parent().find('p').eq(1).replaceWith('<p>到期时间:<label class="y_books-body-deadline">' + returnData.Detail + '</label></p>');
                             $(value).replaceWith('<p>状态:<label class="y_books-body-deadline">本馆续借</label></p>');
                         } else {
                             alert('亲，不好意思，服务器实在是太忙了！');

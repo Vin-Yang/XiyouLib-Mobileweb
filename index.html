@@ -40,21 +40,96 @@
     <a href="http://browsehappy.com/">更新</a> 一下吧以使您得到更好的体验哦！
 </p>
 <![end if]-->
-
-<!--登陆页面-->
-<div data-role="page" data-theme="a">
-    <div data-role="header" id="header">
+<!--搜索页面-->
+<div data-role="page" id="searchPage" data-title="搜索排行">
+    <div data-role="header" data-position="fixed">
         <h1>
             <span class="logo"><img src="img/logo.png" width="35" height="35"> 西邮图书馆</span>
         </h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#login" data-transition="slide">读者登录</a></li>
+                <li><a href="#searchPage" class="focus" data-transition="slide">搜索排行</a></li>
+                <li><a href="#aboutPage" data-transition="slide">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" class="content">
+        <label for="searchBox"></label>
+        <input type="search" id="searchBox">
+
+        <p class="searchButton">
+            <input type="button" value="搜索">
+        </p>
+
+        <div id="searchResult">
+            <div class="searchInfo">
+                亲，您还没有搜索内容哦！
+            </div>
+            <div class="bookList">
+                <h3>排行榜</h3>
+
+                <div data-role="collapsible-set">
+                    <div data-role="collapsible">
+                        <h3>借阅排行</h3>
+
+                        <div class="borrowList">
+                            亲，排行榜我们正在努力完善中，敬请期待哦！
+                        </div>
+                    </div>
+
+                    <div data-role="collapsible">
+                        <h3>收藏排行</h3>
+
+                        <div class="favList">
+                            亲，排行榜我们正在努力完善中，敬请期待哦！
+                        </div>
+                    </div>
+
+                    <div data-role="collapsible">
+                        <h3>检索排行</h3>
+
+                        <div class="searchList">
+                            亲，排行榜我们正在努力完善中，敬请期待哦！
+                        </div>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>查看排行</h3>
+
+                        <div class="checkList">
+                            亲，排行榜我们正在努力完善中，敬请期待哦！
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+    </div>
+</div>
+
+<!--登陆页面-->
+<div data-role="page" data-title="读者登录" id="login">
+    <div data-role="header" data-position="fixed">
+        <h1>
+            <span class="logo"><img src="img/logo.png" width="35" height="35"> 西邮图书馆</span>
+        </h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#login" class="focus" data-transition="slide">读者登陆</a></li>
+                <li><a href="#searchPage" data-transition="slide">搜索排行</a></li>
+                <li><a href="#aboutPage" data-transition="slide">关于我们</a></li>
+            </ul>
+        </div>
     </div>
     <div data-role="content" id="content">
-        <p class="aboutUs"><a href="#">关于我们</a></p>
-
         <div class="login" data-role="fieldcontain">
             <form id="loginForm">
-                <h3>读者登陆</h3>
-
                 <p>
                     <label for="username" class="username"> 用户名: </label><input id="username" name="username"
                                                                                 required="required" type="text"
@@ -82,6 +157,60 @@
     </div>
 </div>
 
+<!--关于页面-->
+<div data-role="page" id="aboutPage" data-title="关于我们">
+    <div data-role="header" data-position="fixed">
+        <h1>
+            <span class="logo"><img src="img/logo.png" width="35" height="35"> 西邮图书馆</span>
+        </h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#login" data-transition="slide">读者登录</a></li>
+                <li><a href="#searchPage" data-transition="slide">搜索排行</a></li>
+                <li><a href="#aboutPage" class="focus" data-transition="slide">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+    <div data-role="content" class="content">
+        <div class="p10">
+            <h4 class="yellow fb">产品</h4>
+
+            <p class="yellow f14">
+                1.名称:西邮图书馆-移动web应用<br><br>
+                2.功能:提供西西邮图书馆，图书查询续借等功能<br><br>
+                3.优点:绝对跨平台，只需要一个浏览器，在各种手机平台（PC）都能使用
+            </p>
+            <h4 class="blue fb">使用</h4>
+
+            <p class=" blue f14">
+                1.打开任意手机浏览器(PC浏览器也可以)<br><br>
+                2.输入http://lib.xiyoumobile.com <br><br>
+                3.开始使用
+            </p>
+            <h4 class="y_books-body-deadline fb">声明</h4>
+
+            <p class="y_books-body-deadline f14">
+                1.本程序使用完全免费<br><br>
+                2.对于非法破解使用本应用的行为，将依法追究其法律责任<br><br>
+                3.本程序版权及最终解释权归西邮移动应用开发俱乐部所有
+
+            </p>
+            <h4 class="fb">联系我们</h4>
+
+            <p class="f14">
+                1.实验室官网: <a href="http://xiyoumobile.com" target="_blank">西邮移动应用开发俱乐部</a><br><br>
+                2.新浪官方微博: <a href="http://weibo.com/u/2794801680" target="_blank">西邮移动应用开发俱乐部</a><br><br>
+                3.人人公共主页: <a href="http://3g.renren.com/profile.do?id=601470193" target="_blank">西邮移动应用开发俱乐部</a><br><br>
+                4.微信公众平台: <a>西邮3G实验室</a>
+            </p>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <span class="footTitle">Copyright &copy; 2014 西邮移动开发应用俱乐部 All rights reserved.</span>
+    </div>
+</div>
+
 <!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
 <!--
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -96,6 +225,7 @@
 <script src="js/plugins.js"></script>
 <script src="js/mine/base.js"></script>
 <script src="js/mine/user.js"></script>
+<script src="js/mine/book.js"></script>
 <script src="js/index.js"></script>
 
 

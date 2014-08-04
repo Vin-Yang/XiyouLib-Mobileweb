@@ -33,41 +33,45 @@ $(function () {
     apiName = 'rent';
     user().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
-            var rentInfo = returnData.Detail;
             var html = '';
-            $.each(rentInfo, function (index, value) {
-                if (value.CanRenew) {
-                    html += '<div class="y_books"> ' +
-                        '<div class="y_books-header"> ' +
-                        '<p> ' +
-                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
-                        '</p> ' +
-                        '</div> ' +
-                        '<div class="y_books-body"> ' +
-                        '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">'+ value.Title+'</a> ' + '》</label></p> ' +
-                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
-                        '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p> ' +
-                        '<p class="y_books-body-borrow" data-barcode="' + value.Barcode + '" data-department_id="' + value.Department_id + '" data-library_id="' + value.Library_id + '"> ' +
-                        '<a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a> ' +
-                        '</p> ' +
-                        '</div> ' +
-                        '</div>';
-                } else {
-                    html += '<div class="y_books"> ' +
-                        '<div class="y_books-header"> ' +
-                        '<p> ' +
-                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
-                        '</p> ' +
-                        '</div> ' +
-                        '<div class="y_books-body"> ' +
-                        '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">'+ value.Title+'</a> ' + '》</label></p>  ' +
-                        /*'<p><label class="blue">《' + value.Title + '》</label></p>  ' +*/
-                        '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p>  ' +
-                        '<p>状态:<label class="y_books-body-deadline">' + value.State + '</label></p> ' +
-                        '</div> ' +
-                        '</div>';
-                }
-            });
+            var rentInfo = returnData.Detail;
+            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
+                html += '亲，赶快借几本书看看吧，再不借你爸妈要生气了！';
+            } else {
+                $.each(rentInfo, function (index, value) {
+                    if (value.CanRenew) {
+                        html += '<div class="y_books"> ' +
+                            '<div class="y_books-header"> ' +
+                            '<p> ' +
+                            /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                            '</p> ' +
+                            '</div> ' +
+                            '<div class="y_books-body"> ' +
+                            '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label></p> ' +
+                            /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                            '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p> ' +
+                            '<p class="y_books-body-borrow" data-barcode="' + value.Barcode + '" data-department_id="' + value.Department_id + '" data-library_id="' + value.Library_id + '"> ' +
+                            '<a data-role="button" class="y_books-body-borrow-submit" data-inline="true">我要续借</a> ' +
+                            '</p> ' +
+                            '</div> ' +
+                            '</div>';
+                    } else {
+                        html += '<div class="y_books"> ' +
+                            '<div class="y_books-header"> ' +
+                            '<p> ' +
+                            /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                            '</p> ' +
+                            '</div> ' +
+                            '<div class="y_books-body"> ' +
+                            '<p><label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label></p>  ' +
+                            /*'<p><label class="blue">《' + value.Title + '》</label></p>  ' +*/
+                            '<p>到期时间:<label class="y_books-body-deadline">' + value.Date + '</label></p>  ' +
+                            '<p>状态:<label class="y_books-body-deadline">' + value.State + '</label></p> ' +
+                            '</div> ' +
+                            '</div>';
+                    }
+                });
+            }
             $('.bookInfo').append(html).trigger('create');
             var temp = [];
             var tempElement = $('.y_books-body-borrow');
@@ -171,30 +175,34 @@ $(function () {
     apiName = 'favorite';
     user().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
-            var rentInfo = returnData.Detail;
             var html = '';
-            var temp1 = [];
-            $.each(rentInfo, function (index, value) {
-                temp1[index] = value.ID;
-                html += '<div class="y_books"> ' +
-                    '<div class="y_books-header"> ' +
-                    '<p> ' +
-                    /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
-                    '</p> ' +
-                    '</div> ' +
-                    '<div class="y_books-body"> ' +
-                    '<p>' +
-                    '<label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
-                    /*'<label class="blue">《' + value.Title + '》</label>' +*/
-                    '</p>  ' +
-                    '<p>图书馆索书号:<label>' + value.Sort + '</label></p>  ' +
-                    '<p>作者:<label>' + value.Author + '</label></p>  ' +
-                    '<p class="m_favourite">' +
-                    '<a href="" data-role="button" data-icon="star" data-inline="true" class="content_btn">从收藏夹移除</a>' +
-                    '</p> ' +
-                    '</div> ' +
-                    '</div>';
-            });
+            var rentInfo = returnData.Detail;
+            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
+                html += '亲，你这家伙太懒了，赶快去收藏几本图书去！';
+            } else {
+                var temp1 = [];
+                $.each(rentInfo, function (index, value) {
+                    temp1[index] = value.ID;
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p>' +
+                        '<label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
+                        /*'<label class="blue">《' + value.Title + '》</label>' +*/
+                        '</p>  ' +
+                        '<p>图书馆索书号:<label>' + value.Sort + '</label></p>  ' +
+                        '<p>作者:<label>' + value.Author + '</label></p>  ' +
+                        '<p class="m_favourite">' +
+                        '<a href="" data-role="button" data-icon="star" data-inline="true" class="content_btn">从收藏夹移除</a>' +
+                        '</p> ' +
+                        '</div> ' +
+                        '</div>';
+                });
+            }
             $('.favInfo').append(html).trigger('create');//加载框架的样式
 
             /*绑定删除收藏的图书事件*/
@@ -243,29 +251,33 @@ $(function () {
     apiName = 'history';
     user().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
-            var rentInfo = returnData.Detail;
             var html = '';
-            $.each(rentInfo, function (index, value) {
-                html += '<div class="y_books"> ' +
-                    '<div class="y_books-header"> ' +
-                    '<p> ' +
-                    /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
-                    '</p> ' +
-                    '</div> ' +
-                    '<div class="y_books-body"> ' +
-                    '<p>' +
-                    '<label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
-                    /*'<label class="blue">《' + value.Title + '》</label>' +*/
-                    '</p>  ' +
-                    '<p>' +
-                    '借书时间:<label>' + value.Date + '</label>' +
-                    '</p>  ' +
-                    '<p>' +
-                    '操作类型:<label>' + value.Type + '</label>' +
-                    '</p>  ' +
-                    '</div> ' +
-                    '</div>';
-            });
+            var rentInfo = returnData.Detail;
+            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
+                html += '我擦，你这货竟然连一本书都没借过！';
+            } else {
+                $.each(rentInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p>' +
+                        '<label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
+                        /*'<label class="blue">《' + value.Title + '》</label>' +*/
+                        '</p>  ' +
+                        '<p>' +
+                        '借书时间:<label>' + value.Date + '</label>' +
+                        '</p>  ' +
+                        '<p>' +
+                        '操作类型:<label>' + value.Type + '</label>' +
+                        '</p>  ' +
+                        '</div> ' +
+                        '</div>';
+                });
+            }
             $('.historyInfo').append(html).trigger('create');//加载框架的样式
         } else {
             alert('亲，不好意思，您的登录已经过期，请重新登陆!');

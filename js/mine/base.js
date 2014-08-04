@@ -20,6 +20,9 @@
             data: data,
             success: function (res, status, xhr) {
                 callback(res);
+            },
+            error: function (xhr, errorText, errorStatus) {
+                alert(xhr.status + ':' + xhr.statusText);
             }
         });
     };

@@ -1,33 +1,46 @@
 /**
  * Created by 文鹏 on 2014/7/27.
  */
-function getUrlParam(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-    if (r != null) return unescape(r[2]);
-    return null; //返回参数值
-}
-var Session = getUrlParam("session");
-console.log(Session);
-var Barcode = getUrlParam("barcode");
-console.log(Barcode);
-var Id = getUrlParam("id");
-console.log(Id);
-if (Session == '' || Session == null) {
-    window.location.href = "index.html";
-}
 $(function () {
-    $('h1').next().attr('href', 'main.html?session=' + Session);
-    /*获取图书详情*/
-    var apiName;
-    var data;
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    var Session = getUrlParam("session");
+    //console.log(Session);
+    var Barcode = getUrlParam("barcode");
+    //console.log(Barcode);
+    var Id = getUrlParam("id");
+    //console.log(Id);
+
+    /*
+     由于现在图书详情里面有相关图书而相关图
+     书又有详情页面，这样就形成一个页面的递
+     归定向，这时候的要通过页面的返回按钮去
+     跳出递归，而此时就要判断你是从哪个页面
+     跳到详情页面的，然后就回到哪个页面去！
+     */
+    var url;//这个变量将决定相关图书的详情页面里返回的页面的返回页面
+    if (Session == '' || Session == null) {
+        $('h1').next().attr('href', 'index.html');
+        url = '<a href="moreInfo.html?';
+    } else {
+        $('h1').next().attr('href', 'main.html?session=' + Session);
+        url = '<a href="moreInfo.html?session=' + Session;
+    }
     /*选择哪种方式去查找详情*/
     if (Id != null && Barcode == null) {
         apiName = 'detailById';
         data = Id;
-    } else {
+    } else if (Id == null && Barcode != null) {
         apiName = 'detailByBarcode';
         data = Barcode;
+    } else {
+        alert('亲，您访问的路径是非法的哦！');
+        window.location.href = "index.html";
     }
     /*请求图书详情*/
     book().Api(apiName, data, function (returnData) {
@@ -123,7 +136,7 @@ $(function () {
                 } else {
                     pub = returnData.Detail.DoubanInfo.Publisher;
                 }
-            
+
             } else {
                 img = 'http://img3.douban.com/pics/book-default-medium.gif';
                 price = '暂无';
@@ -213,7 +226,7 @@ $(function () {
                         '<div class="y_books-body yellow"> ' +
                         '<p>条码:<label>' + value.Barcode + '</label></p>  ' +
                         '<p>状态:<label>' + value.Status + '</label></p>  ' +
-                        '<p>所在书库:<label>' + value.Department + '</label></p>  ' +
+                        '<p>书库:<label>' + value.Department + '</label></p>  ' +
                         '<p>应还日期:<label>' + value.Date + '</label></p> ' +
                         '</div> ' +
                         '</div> ';
@@ -231,13 +244,13 @@ $(function () {
 
             /*绑定摘要*/
             html = '';
-            html += summary;
+            html += '<p class="green t2 lh150">'+summary +'</p>' ;
             $('.absInfo').append(html).trigger('create');//加载框架的样式
 
             /*绑定相关图书*/
             var ReferBooks = returnData.Detail.ReferBooks;
             html = '';
-            $.each(ReferBooks, function (index, value)  {
+            $.each(ReferBooks, function (index, value) {
                 html += '<div class="y_books"> ' +
                     '<div class="y_books-header"> ' +
                     '<p> ' +
@@ -245,7 +258,7 @@ $(function () {
                     '</p> ' +
                     '</div> ' +
                     '<div class="y_books-body"> ' +
-                    '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">'+value.Title +'</a> '+ '》</label></p>  ' +
+                    '<p><label class="blue">《' + url + '&id=' + value.ID + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label></p>  ' +
                     /*'<p><label class="blue">《' + value.Title + '》</label></p>  ' +*/
                     '<p>作者:<label>' + value.Author + '</label></p>  ' +
                     '<p>控制号:<label>' + value.ID + '</label></p>  ' +

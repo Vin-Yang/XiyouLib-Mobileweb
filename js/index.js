@@ -49,6 +49,7 @@ $(function () {
             $.cookie("password", '', { expires: -1 });
         }
     }
+
     /*搜索图书信息*/
     $('.searchButton').on("click", "input", function () {
         var temp = $('#searchBox').val().trim();
@@ -64,44 +65,73 @@ $(function () {
                     if (returnData.Result) {
                         var searchInfo = returnData.Detail.BookData;
                         var html = '';
-                        var temp = $('.searchInfo');
-                        if (temp) {
-                            html += '<div class="bar"> ' +
-                                '<div class="fl"> ' +
-                                '<label>第<span class="blue" id="currentPage">' + returnData.Detail.CurrentPage + '</span>页</label>/' +
-                                '<label>共<span class="blue" id="pages">' + returnData.Detail.Pages + '</span>页</label> ' +
-                                '</div> ' +
-                                '<span id="remove"><a>清除结果</a></span>' +
-                                '<div class="fr"> ' +
-                                '<a class="start">首页 </a>' +
-                                '<a class="next">下一页 </a>' +
-                                '<a class="before">上一页 </a>' +
-                                '</div> ' +
-                                '</div>';
+                        var rentInfo = returnData.Detail;
+                        if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
+                            var temp = $('.searchInfo');
+                            if (temp) {
+                                html += '<div class="bar"> ' +
+                                    '<div class="fl"> ' +
+                                    '<label>第<span class="blue" id="currentPage">0</span>页</label>/' +
+                                    '<label>共<span class="blue" id="pages">0</span>页</label> ' +
+                                    '</div> ' +
+                                    '<span id="remove"><a>清除结果</a></span>' +
+                                    '<div class="fr"> ' +
+                                    '<a class="start">首页 </a>' +
+                                    '<a class="next">下一页 </a>' +
+                                    '<a class="before">上一页 </a>' +
+                                    '</div> ' +
+                                    '</div>';
+                            }
                             temp.before(html).trigger('create');//在searchInfo之前插入内容
                             $('#remove').on("click", "a", function () {
                                 $('.searchInfo').prevUntil().remove();
                                 $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
                                 $('.bookList').show();
                             });
-                        }
-                        html = '';
-                        $.each(searchInfo, function (index, value) {
-                                html += '<div class="y_books"> ' +
-                                    '<div class="y_books-header"> ' +
-                                    '<p> ' +
-                                    /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
-                                    '</p> ' +
+                            html='';
+                            html='亲，您这次神马都没有搜到哦，换个关键词试试呗！';
+                            temp.append(html).trigger('create');
+                        } else {
+                            var temp = $('.searchInfo');
+                            if (temp) {
+                                html += '<div class="bar"> ' +
+                                    '<div class="fl"> ' +
+                                    '<label>第<span class="blue" id="currentPage">' + returnData.Detail.CurrentPage + '</span>页</label>/' +
+                                    '<label>共<span class="blue" id="pages">' + returnData.Detail.Pages + '</span>页</label> ' +
                                     '</div> ' +
-                                    '<div class="y_books-body"> ' +
-                                    '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
-                                    /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                                    '<span id="remove"><a>清除结果</a></span>' +
+                                    '<div class="fr"> ' +
+                                    '<a class="start">首页 </a>' +
+                                    '<a class="next">下一页 </a>' +
+                                    '<a class="before">上一页 </a>' +
                                     '</div> ' +
                                     '</div>';
-
                             }
-                        );
-                        temp.append(html).trigger('create');
+                            temp.before(html).trigger('create');//在searchInfo之前插入内容
+                            $('#remove').on("click", "a", function () {
+                                $('.searchInfo').prevUntil().remove();
+                                $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
+                                $('.bookList').show();
+                            });
+                            html = '';
+                            $.each(searchInfo, function (index, value) {
+                                    html += '<div class="y_books"> ' +
+                                        '<div class="y_books-header"> ' +
+                                        '<p> ' +
+                                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                                        '</p> ' +
+                                        '</div> ' +
+                                        '<div class="y_books-body"> ' +
+                                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
+                                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                                        '</div> ' +
+                                        '</div>';
+
+                                }
+                            );
+                            temp.append(html).trigger('create');
+                        }
+
                     } else {
                         alert('亲，不好意思，您的登录已经过期，请重新登陆!');
                         window.location.href = "index.html";

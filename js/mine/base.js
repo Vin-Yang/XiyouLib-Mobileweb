@@ -2,7 +2,7 @@
  * Created by 文鹏 on 2014/7/30.
  */
 (function () {
-    var host = '';
+    var host = "http://172.20.0.150:18000";
     $.ajaxSetup({
         type: "GET",
         dataType: "jsonp",

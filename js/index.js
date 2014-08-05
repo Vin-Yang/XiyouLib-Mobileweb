@@ -133,7 +133,7 @@ $(function () {
                         }
 
                     } else {
-                        alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+                        alert('亲，不好意思,您还未登录无法收藏哦，请重新登陆!');
                         window.location.href = "index.html";
                     }
                 }

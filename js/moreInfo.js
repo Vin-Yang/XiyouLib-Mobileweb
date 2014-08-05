@@ -24,6 +24,7 @@ $(function () {
      跳到详情页面的，然后就回到哪个页面去！
      */
     var url;//这个变量将决定相关图书的详情页面里返回的页面的返回页面
+    var hint;
     if (Session == '' || Session == null) {
         $('h1').next().attr('href', 'index.html');
         url = '<a href="moreInfo.html?';
@@ -198,21 +199,26 @@ $(function () {
                             case 'ALREADY_IN_FAVORITE':
                                 alert('亲，这本书已经收藏过了哦！');
                                 break;
+                            default :
+                                alert('亲，服务器实在是太忙了！');
+                                window.location.reload();
+                        }
+                    } else {
+                        switch (returnData.Detail) {
                             case 'ADDED_FAILED':
                                 alert('Sorry,收藏失败了！');
                                 break;
                             case 'USER_NOT_LOGIN':
-                                alert('亲，你还没登录呢!');
+                                alert('亲，您还没登录呢，暂时无法收藏图书，请登录账号后再去搜索收藏！');
+                                window.location.href = "index.html";
                                 break;
                             case 'PARAM_ERROR':
                                 alert('参数错误，缺少参数！');
                                 break;
                             default :
                                 alert('亲，服务器实在是太忙了！');
+                                window.location.reload();
                         }
-                    } else {
-                        alert('亲，不好意思，您的登录已经过期，请重新登陆!');
-                        window.location.href = "index.html";
                     }
                 });
             });
@@ -267,7 +273,7 @@ $(function () {
             });
             $('.relInfo').append(html).trigger('create');//加载框架的样式
         } else {
-            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+            alert('亲，不好意思，您的登录已经过期，请重新返回登陆!');
             window.location.href = "index.html";
         }
     });

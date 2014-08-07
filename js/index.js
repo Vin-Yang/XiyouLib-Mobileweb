@@ -430,7 +430,7 @@ $(function () {
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p><label class="blue">' + value.Title + '</label></p> ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
                         /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
                         '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
                         '</div> ' +

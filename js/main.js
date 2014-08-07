@@ -107,6 +107,121 @@ $(function () {
         }
     });
 
+    /*请求收藏信息*/
+    apiName = 'favorite';
+    user().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var html = '';
+            var rentInfo = returnData.Detail;
+            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
+                html += '亲，你这家伙太懒了，赶快去收藏几本图书去！';
+            } else {
+                var temp1 = [];
+                $.each(rentInfo, function (index, value) {
+                    temp1[index] = value.ID;
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p>' +
+                        '<label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
+                        /*'<label class="blue">《' + value.Title + '》</label>' +*/
+                        '</p>  ' +
+                        '<p>图书馆索书号:<label>' + value.Sort + '</label></p>  ' +
+                        '<p>作者:<label>' + value.Author + '</label></p>  ' +
+                        '<p class="m_favourite">' +
+                        '<a href="" data-role="button" data-icon="star" data-inline="true" class="content_btn">从收藏夹移除</a>' +
+                        '</p> ' +
+                        '</div> ' +
+                        '</div>';
+                });
+            }
+            $('.favInfo').append(html).trigger('create');//加载框架的样式
+
+            /*绑定删除收藏的图书事件*/
+            var name = $('.name').attr('data-username');
+            $.each($('.m_favourite'), function (index, value) {
+                $(this).on("click", "a", function () {
+                    apiName = 'delFav';
+                    data = {
+                        session: Session,
+                        username: name,
+                        id: temp1[index]
+                    };
+                    user().Api(apiName, data, function (returnData) {
+                        if (returnData.Result) {
+                            switch (returnData.Detail) {
+                                case 'DELETED_SUCCEED':
+                                    alert('恭喜亲，删除成功！');
+                                    $(value).parent().parent().remove();
+                                    break;
+                                case 'DELETED_FAILED':
+                                    alert('亲，删除失败了！');
+                                    break;
+                                case 'USER_NOT_LOGIN':
+                                    alert('亲，你还没登录呢!');
+                                    break;
+                                case 'PARAM_ERROR':
+                                    alert('参数错误，缺少参数！');
+                                    break;
+                                default :
+                                    alert('亲，服务器实在是太忙了！');
+                            }
+                        } else {
+                            alert('亲，服务器实在是太忙了！');
+                        }
+                    });
+                });
+            });
+        } else {
+            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+            window.location.href = "index.html";
+        }
+
+    });
+
+    /*请求借阅历史信息*/
+    apiName = 'history';
+    user().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var html = '';
+            var rentInfo = returnData.Detail;
+            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
+                html += '我擦，你这货竟然连一本书都没借过！';
+            } else {
+                $.each(rentInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p>' +
+                        '<label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
+                        /*'<label class="blue">《' + value.Title + '》</label>' +*/
+                        '</p>  ' +
+                        '<p>' +
+                        '借书时间:<label>' + value.Date + '</label>' +
+                        '</p>  ' +
+                        '<p>' +
+                        '操作类型:<label>' + value.Type + '</label>' +
+                        '</p>  ' +
+                        '</div> ' +
+                        '</div>';
+                });
+            }
+            $('.historyInfo').append(html).trigger('create');//加载框架的样式
+        } else {
+            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
+            window.location.href = "index.html";
+        }
+
+    });
+
     /*搜索图书信息*/
     isFinished = true;
     $('.searchButton').on("click", "input", function () {
@@ -363,118 +478,132 @@ $(function () {
         }
     });
 
-    /*请求收藏信息*/
-    apiName = 'favorite';
-    user().Api(apiName, data, function (returnData) {
+
+    /**排行榜**/
+    apiName = 'rank';
+    /*图书借阅排行榜*/
+    data = {
+        type: '1',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
-            var html = '';
-            var rentInfo = returnData.Detail;
-            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
-                html += '亲，你这家伙太懒了，赶快去收藏几本图书去！';
-            } else {
-                var temp1 = [];
-                $.each(rentInfo, function (index, value) {
-                    temp1[index] = value.ID;
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
                     html += '<div class="y_books"> ' +
                         '<div class="y_books-header"> ' +
                         '<p> ' +
-                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p>' +
-                        '<label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
-                        /*'<label class="blue">《' + value.Title + '》</label>' +*/
-                        '</p>  ' +
-                        '<p>图书馆索书号:<label>' + value.Sort + '</label></p>  ' +
-                        '<p>作者:<label>' + value.Author + '</label></p>  ' +
-                        '<p class="m_favourite">' +
-                        '<a href="" data-role="button" data-icon="star" data-inline="true" class="content_btn">从收藏夹移除</a>' +
-                        '</p> ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span>     分类号:<span class="blue">' + value.Sort + '</span></p> ' +
                         '</div> ' +
                         '</div>';
-                });
-            }
-            $('.favInfo').append(html).trigger('create');//加载框架的样式
+                }
+            );
+            $('.borrowList').append(html).trigger('create');
 
-            /*绑定删除收藏的图书事件*/
-            var name = $('.name').attr('data-username');
-            $.each($('.m_favourite'), function (index, value) {
-                $(this).on("click", "a", function () {
-                    apiName = 'delFav';
-                    data = {
-                        session: Session,
-                        username: name,
-                        id: temp1[index]
-                    };
-                    user().Api(apiName, data, function (returnData) {
-                        if (returnData.Result) {
-                            switch (returnData.Detail) {
-                                case 'DELETED_SUCCEED':
-                                    alert('恭喜亲，删除成功！');
-                                    $(value).parent().parent().remove();
-                                    break;
-                                case 'DELETED_FAILED':
-                                    alert('亲，删除失败了！');
-                                    break;
-                                case 'USER_NOT_LOGIN':
-                                    alert('亲，你还没登录呢!');
-                                    break;
-                                case 'PARAM_ERROR':
-                                    alert('参数错误，缺少参数！');
-                                    break;
-                                default :
-                                    alert('亲，服务器实在是太忙了！');
-                            }
-                        } else {
-                            alert('亲，服务器实在是太忙了！');
-                        }
-                    });
-                });
-            });
         } else {
-            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
-            window.location.href = "index.html";
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
         }
-
     });
 
-    /*请求借阅历史信息*/
-    apiName = 'history';
-    user().Api(apiName, data, function (returnData) {
+    /*图书收藏排行榜*/
+    data = {
+        type: '3',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
-            var html = '';
-            var rentInfo = returnData.Detail;
-            if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
-                html += '我擦，你这货竟然连一本书都没借过！';
-            } else {
-                $.each(rentInfo, function (index, value) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
                     html += '<div class="y_books"> ' +
                         '<div class="y_books-header"> ' +
                         '<p> ' +
-                        /*'<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">图书详情</a> ' +*/
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
                         '</p> ' +
                         '</div> ' +
                         '<div class="y_books-body"> ' +
-                        '<p>' +
-                        '<label class="blue">《' + '<a href="moreInfo.html?barcode=' + value.Barcode + '&session=' + Session + '" data-rel="external" data-ajax="false">' + value.Title + '</a> ' + '》</label>' +
-                        /*'<label class="blue">《' + value.Title + '》</label>' +*/
-                        '</p>  ' +
-                        '<p>' +
-                        '借书时间:<label>' + value.Date + '</label>' +
-                        '</p>  ' +
-                        '<p>' +
-                        '操作类型:<label>' + value.Type + '</label>' +
-                        '</p>  ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
                         '</div> ' +
                         '</div>';
-                });
-            }
-            $('.historyInfo').append(html).trigger('create');//加载框架的样式
-        } else {
-            alert('亲，不好意思，您的登录已经过期，请重新登陆!');
-            window.location.href = "index.html";
-        }
+                }
+            );
+            $('.favList').append(html).trigger('create');
 
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
+        }
+    });
+
+    /*图书检索排行榜*/
+    data = {
+        type: '2',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p><label class="blue">' + value.Title + '</label></p> ' +
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
+                        '</div> ' +
+                        '</div>';
+                }
+            );
+            $('.searchList').append(html).trigger('create');
+
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
+        }
+    });
+
+    /*图书查看排行榜*/
+    data = {
+        type: '5',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' + /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
+                        '</div> ' +
+                        '</div>';
+                }
+            );
+            $('.checkList').append(html).trigger('create');
+
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
+        }
     });
 });

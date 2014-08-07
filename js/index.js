@@ -137,7 +137,6 @@ $(function () {
                                             /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
                                             '</div> ' +
                                             '</div>';
-
                                     }
                                 );
                                 temp.append(html).trigger('create');
@@ -311,6 +310,138 @@ $(function () {
         }
         else {
             alert('关键字不能为空哦！');
+        }
+    });
+
+    /*图书借阅排行榜*/
+    apiName = 'rank';
+    data = {
+        type: '1',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span>     分类号:<span class="blue">' + value.Sort + '</span></p> ' +
+                        '</div> ' +
+                        '</div>';
+                }
+            );
+            $('.borrowList').append(html).trigger('create');
+
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
+        }
+    });
+
+    /*图书收藏排行榜*/
+    apiName = 'rank';
+    data = {
+        type: '3',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p><label class="blue">《' + '<a href="moreInfo.html?id=' + value.ID + '" data-rel="external" data-ajax="false" >' + value.Title + '</a> ' + '》</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
+                        '</div> ' +
+                        '</div>';
+                }
+            );
+            $('.favList').append(html).trigger('create');
+
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
+        }
+    });
+
+    /*图书检索排行榜*/
+    apiName = 'rank';
+    data = {
+        type: '2',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p><label class="blue">' + value.Title + '</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
+                        '</div> ' +
+                        '</div>';
+                }
+            );
+            $('.searchList').append(html).trigger('create');
+
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
+        }
+    });
+
+    /*图书查看排行榜*/
+    apiName = 'rank';
+    data = {
+        type: '5',
+        size: 10
+    };
+    book().Api(apiName, data, function (returnData) {
+        if (returnData.Result) {
+            var searchInfo = returnData.Detail;
+            html = '';
+            $.each(searchInfo, function (index, value) {
+                    html += '<div class="y_books"> ' +
+                        '<div class="y_books-header"> ' +
+                        '<p> ' +
+                        /*'<a href="moreInfo.html?id=' + value.ID + '&session=' + Session + '" data-rel="external" data-ajax="false" >图书详情</a> ' +*/
+                        '</p> ' +
+                        '</div> ' +
+                        '<div class="y_books-body"> ' +
+                        '<p><label class="blue">' + value.Title + '</label></p> ' +
+                        /*'<p><label class="blue">《' + value.Title + '》</label></p> ' +*/
+                        '<p class="f14">排名:<span class="blue">' + value.Rank + '</span>     次数:<span class="blue">' + value.BorNum + '</span></p> ' +
+                        '</div> ' +
+                        '</div>';
+                }
+            );
+            $('.checkList').append(html).trigger('create');
+
+        } else {
+            alert('亲，服务器实在是太忙了！');
+            window.location.reload();
         }
     });
 });

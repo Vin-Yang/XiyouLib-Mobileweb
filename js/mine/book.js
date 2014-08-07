@@ -23,6 +23,9 @@
             case 'getDouban':
                 api = '/other/getDouban';
                 break;
+            case 'rank':
+                api = '/book/rank';
+                break;
             default :
                 callback(null);
         }

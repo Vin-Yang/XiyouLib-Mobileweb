@@ -22,6 +22,7 @@ $(function () {
                         window.location.href = "main.html?session=" + Session;
                     } else {
                         alert('亲，账号或密码错了哦！');
+                        isFinished = true;
                     }
                 });
             } else {

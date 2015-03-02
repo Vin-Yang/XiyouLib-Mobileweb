@@ -12,6 +12,8 @@ if (Session == '' || Session == null) {
     window.location.href = "index.html";
 }
 $(function () {
+    //用户类型
+    var readerType;
     var isFinished;
     /*请求用户信息*/
     var apiName = 'info';
@@ -21,6 +23,7 @@ $(function () {
             var Name = returnData.Detail.Name;
             var username = returnData.Detail.ID;
             var department = returnData.Detail.Department;
+            readerType = returnData.Detail.ReaderType;
             var html = '';
             html += department + ' ' + Name;
             $('.name').append(html).attr('data-username', username);
@@ -29,17 +32,49 @@ $(function () {
             window.location.href = "index.html";
         }
     });
-
+    /*根据不同的用户类型决定不同的可借书数目*/
+    //可借书总数
+    var all;
+    switch (readerType) {
+        case '科生':
+            all = 15;
+            break;
+        case '老师':
+            all = 20;
+            break;
+        default :
+            all = 15;
+    }
     /*请求借书信息*/
     apiName = 'rent';
+
     user().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
             var html = '';
+            var borrowingInfoHtml = '';
+            //已借图书统计
+            var alreadyBorrow = 0;
+            //剩余可借图书统计
+            var surplusBorrow = 0;
+            //续借图书统计
+            var reBorrow = 0;
+            //超期统计
+            var exceedBorrow = 0;
+
             var rentInfo = returnData.Detail;
             if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
                 html += '亲，赶快借几本书看看吧，再不借你爸妈要生气了！';
             } else {
                 $.each(rentInfo, function (index, value) {
+                    alreadyBorrow++;
+                    switch (value.State) {
+                        case '本馆续借':
+                            reBorrow++;
+                            break;
+                        case '过期暂停':
+                            exceedBorrow++;
+                            break;
+                    }
                     if (value.CanRenew) {
                         html += '<div class="y_books"> ' +
                             '<div class="y_books-header"> ' +
@@ -72,7 +107,17 @@ $(function () {
                             '</div>';
                     }
                 });
+                surplusBorrow = all - alreadyBorrow;
             }
+            borrowingInfoHtml += '<div class="borrowingInfo-left">' +
+                ' <p>已借图书:<label class="blue">' + alreadyBorrow + '</label>本</p> ' +
+                ' <p>续借图书:<label class="red">' + reBorrow + '</label>本</p> ' +
+                '</div> ' +
+                '<div class="borrowingInfo-right"> ' +
+                '<p>剩余可借:<label class="green">' + surplusBorrow + '</label>本</p>  ' +
+                '<p>超期图书:<label class="red">' + exceedBorrow + '</label>本</p> ' +
+                '</div>';
+            $('.borrowingInfo').append(borrowingInfoHtml).trigger('create');
             $('.bookInfo').append(html).trigger('create');
             var temp = [];
             var tempElement = $('.y_books-body-borrow');
@@ -227,7 +272,7 @@ $(function () {
     $('.searchButton').on("click", "input", function () {
         var temp0 = $('#searchBox').val().trim();
         if (temp0 != '') {
-            $('.bookList').hide();
+//            $('.bookList').hide();
             $('.searchInfo').prevUntil().remove();
             $('.searchInfo').empty();
             apiName = 'search';
@@ -244,30 +289,32 @@ $(function () {
                             var rentInfo = returnData.Detail;
                             if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
                                 var temp = $('.searchInfo');
-                                if (temp) {
-                                    html += '<div class="bar"> ' +
-                                        '<div class="fl"> ' +
-                                        '<label>第<span class="blue" id="currentPage">0</span>页</label>/' +
-                                        '<label>共<span class="blue" id="pages">0</span>页</label> ' +
-                                        '</div> ' +
-                                        '<span id="remove"><a>清除结果</a></span>' +
-                                        '<div class="fr"> ' +
-                                        '<a class="start">首页 </a>' +
-                                        '<a class="next">下一页 </a>' +
-                                        '<a class="before">上一页 </a>' +
-                                        '</div> ' +
-                                        '</div>';
-                                }
-                                temp.before(html).trigger('create');//在searchInfo之前插入内容
-                                $('#remove').on("click", "a", function () {
-                                    $('.searchInfo').prevUntil().remove();
-                                    $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
-                                    $('.bookList').show();
-                                });
-                                html = '';
+                                /*if (temp) {
+                                 html += '<div class="bar"> ' +
+                                 '<div class="fl"> ' +
+                                 '<label>第<span class="currentPage blue">0</span>页</label>/' +
+                                 '<label>共<span class="pages blue">0</span>页</label> ' +
+                                 '</div> ' +
+                                 '<span id="remove"><a>清除结果</a></span>' +
+                                 '<div class="fr"> ' +
+                                 '<a class="start">首页 </a>' +
+                                 '<a class="next">下一页 </a>' +
+                                 '<a class="before">上一页 </a>' +
+                                 '</div> ' +
+                                 '</div>';
+                                 }
+                                 temp.before(html).trigger('create');//在searchInfo之前插入内容
+                                 //清除搜索内容
+                                 $('#remove').on("click", "a", function () {
+                                 $('.searchInfo').prevUntil().remove();
+                                 $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
+                                 $('.bookList').show();
+                                 });
+                                 html = '';*/
                                 html = '亲，您这次神马都没有搜到哦，换个关键词试试呗！';
                                 temp.append(html).trigger('create');
                             } else {
+                                $('.bookList').hide();
                                 var countPage;
                                 var pages;
                                 var temp = $('.searchInfo');
@@ -276,10 +323,10 @@ $(function () {
                                     pages = returnData.Detail.Pages;
                                     html += '<div class="bar"> ' +
                                         '<div class="fl"> ' +
-                                        '<label>第<span class="blue" id="currentPage">' + countPage + '</span>页</label>/' +
-                                        '<label>共<span class="blue" id="pages">' + returnData.Detail.Pages + '</span>页</label> ' +
+                                        '<label>第<span class="currentPage blue">' + countPage + '</span>页</label>/' +
+                                        '<label>共<span class="pages blue">' + returnData.Detail.Pages + '</span>页</label> ' +
                                         '</div> ' +
-                                        '<span id="remove"><a>清除结果</a></span>' +
+                                        '<span class="remove"><a>清除结果</a></span>' +
                                         '<div class="fr"> ' +
                                         '<a class="start">首页 </a>' +
                                         '<a class="before">上一页 </a>' +
@@ -288,6 +335,8 @@ $(function () {
                                         '</div>';
                                 }
                                 temp.before(html).trigger('create');//在searchInfo之前插入内容
+                                temp.after(html).trigger('create');//在searchInfo之后插入内容
+                                //绑定搜索结果
                                 html = '';
                                 $.each(searchInfo, function (index, value) {
                                         html += '<div class="y_books"> ' +
@@ -305,13 +354,16 @@ $(function () {
                                     }
                                 );
                                 temp.append(html).trigger('create');
-                                $('#remove').on("click", "a", function () {
+                                //清除搜索内容
+                                $('.remove').on("click", "a", function () {
                                     $('.searchInfo').prevUntil().remove();
+                                    $('.searchInfo').nextUntil().eq(0).remove();
                                     $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
                                     $('.bookList').show();
                                 });
                                 var Page = 1;
                                 var page;
+                                //返回第一页
                                 isFinished = true;
                                 $('.start').on("click", function () {
                                     Page = 1;
@@ -327,7 +379,7 @@ $(function () {
                                             if (returnData.Result) {
                                                 isFinished = true;
                                                 countPage = returnData.Detail.CurrentPage;
-                                                $('#currentPage').text(countPage);
+                                                $('.currentPage').text(countPage);
                                                 var searchInfo = returnData.Detail.BookData;
                                                 var html = '';
                                                 $.each(searchInfo, function (index, value) {
@@ -358,6 +410,7 @@ $(function () {
                                     }
 
                                 });
+                                //下一页
                                 isFinished = true;
                                 $('.next').on("click", function () {
                                     apiName = 'search';
@@ -376,7 +429,7 @@ $(function () {
                                                 if (returnData.Result) {
                                                     isFinished = true;
                                                     countPage = returnData.Detail.CurrentPage;
-                                                    $('#currentPage').text(countPage);
+                                                    $('.currentPage').text(countPage);
                                                     Page++;
                                                     var searchInfo = returnData.Detail.BookData;
                                                     var html = '';
@@ -409,6 +462,7 @@ $(function () {
                                     }
 
                                 });
+                                //上一页
                                 isFinished = true;
                                 $('.before').on("click", function () {
                                     apiName = 'search';
@@ -427,7 +481,7 @@ $(function () {
                                                 if (returnData.Result) {
                                                     isFinished = true;
                                                     countPage = returnData.Detail.CurrentPage;
-                                                    $('#currentPage').text(countPage);
+                                                    $('.currentPage').text(countPage);
                                                     Page--;
                                                     var searchInfo = returnData.Detail.BookData;
                                                     var html = '';

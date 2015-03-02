@@ -47,7 +47,6 @@ $(function () {
     book().Api(apiName, data, function (returnData) {
         if (returnData.Result) {
             var html = '';
-
             /*绑定基本信息*/
             /*图书馆提供的信息*/
             var title = returnData.Detail.Title;//书名
@@ -224,9 +223,16 @@ $(function () {
             });
 
             /*绑定流通情况*/
+            /*可借图书信息统计*/
+            var borrowingInfoHtml = '';
+            //可借书总数
+            var all = 0;
+            //剩余可借图书统计
+            var surplusBorrow = 0;
             var CirculationInfo = returnData.Detail.CirculationInfo;
             html = '';
             $.each(CirculationInfo, function (index, value) {
+                all++;
                 if (value.Date != null) {
                     html += '<div class="y_books"> ' +
                         '<div class="y_books-body yellow"> ' +
@@ -237,6 +243,7 @@ $(function () {
                         '</div> ' +
                         '</div> ';
                 } else {
+                    surplusBorrow++;
                     html += '<div class="y_books"> ' +
                         '<div class="y_books-body green"> ' +
                         '<p>条码:<label>' + value.Barcode + '</label></p>  ' +
@@ -246,11 +253,18 @@ $(function () {
                         '</div> ';
                 }
             });
+            borrowingInfoHtml+='<div class="borrowingInfo-left">' +
+                ' <p>可借图书:<label class="green">'+ surplusBorrow +'</label>本</p>' +
+                ' </div> ' +
+                '<div class="borrowingInfo-right"> ' +
+                '<p>共有图书:<label class="blue">'+ all +'</label>本</p> ' +
+                '</div>';
+            $('.borrowingInfo').append(borrowingInfoHtml).trigger('create');
             $('.cirInfo').append(html).trigger('create');//加载框架的样式
 
             /*绑定摘要*/
             html = '';
-            html += '<p class="green t2 lh150">'+summary +'</p>' ;
+            html += '<p class="green t2 lh150">' + summary + '</p>';
             $('.absInfo').append(html).trigger('create');//加载框架的样式
 
             /*绑定相关图书*/

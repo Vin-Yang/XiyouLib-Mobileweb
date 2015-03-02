@@ -18,11 +18,9 @@
     <meta name="description" content="西邮图书馆，西邮3G实验室，西安邮电大学">
     <meta name="viewport" content="width=device-width, initial-scale=1,ser-scalable=no">
 
-
-    <!--
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-    -->
-    <link rel="stylesheet" href="css/themes/jquery.mobile-1.4.2.css"/>
+    <!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <!--<link rel="stylesheet" href="css/themes/jquery.mobile-1.4.2.css"/>-->
     <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"/>
     <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/base.css"/>
@@ -71,6 +69,14 @@
     <div data-role="content" class="content">
         <h3>图书的流通情况如下</h3>
 
+        <div class="borrowingInfo h40">
+            <!--<div class="borrowingInfo-left">
+                <p>可借图书:<label class="green">10</label>本</p>
+            </div>
+            <div class="borrowingInfo-right">
+                <p>共有图书:<label class="blue">10</label>本</p>
+            </div>-->
+        </div>
         <div class="cirInfo">
 
         </div>
@@ -136,18 +142,12 @@
         </div>
     </div>
 </div>
-
-
-<!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
-<!--
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
--->
-
 <!--下面的内容是加载页面要用的js文件-->
-<script src="js/vendor/jquery-1.11.1.js"></script>
-<script src="js/vendor/jquery.mobile-1.4.2.js"></script>
+<!--下面注释的内容是直接引用CDN（内容交付网络）上面的资源，因为那样加载速度会更快-->
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!--<script src="js/vendor/jquery-1.11.1.js"></script>
+<script src="js/vendor/jquery.mobile-1.4.2.js"></script>-->
 <script src="js/plugins.js"></script>
 <script src="js/mine/base.js"></script>
 <script src="js/mine/user.js"></script>

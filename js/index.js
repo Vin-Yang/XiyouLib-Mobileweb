@@ -64,7 +64,7 @@ $(function () {
     $('.searchButton').on("click", "input", function () {
         var temp0 = $('#searchBox').val().trim();
         if (temp0 != '') {
-            $('.bookList').hide();
+//            $('.bookList').hide();
             $('.searchInfo').prevUntil().remove();
             $('.searchInfo').empty();
             apiName = 'search';
@@ -81,30 +81,31 @@ $(function () {
                             var rentInfo = returnData.Detail;
                             if (rentInfo == null || rentInfo == '' || rentInfo == undefined || rentInfo == 'NO_RECORD') {
                                 var temp = $('.searchInfo');
-                                if (temp) {
-                                    html += '<div class="bar"> ' +
-                                        '<div class="fl"> ' +
-                                        '<label>第<span class="blue" id="currentPage">0</span>页</label>/' +
-                                        '<label>共<span class="blue" id="pages">0</span>页</label> ' +
-                                        '</div> ' +
-                                        '<span id="remove"><a>清除结果</a></span>' +
-                                        '<div class="fr"> ' +
-                                        '<a class="start">首页 </a>' +
-                                        '<a class="next">下一页 </a>' +
-                                        '<a class="before">上一页 </a>' +
-                                        '</div> ' +
-                                        '</div>';
-                                }
-                                temp.before(html).trigger('create');//在searchInfo之前插入内容
-                                $('#remove').on("click", "a", function () {
-                                    $('.searchInfo').prevUntil().remove();
-                                    $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
-                                    $('.bookList').show();
-                                });
-                                html = '';
+                                /*if (temp) {
+                                 html += '<div class="bar"> ' +
+                                 '<div class="fl"> ' +
+                                 '<label>第<span class="currentPage blue">0</span>页</label>/' +
+                                 '<label>共<span class="pages blue">0</span>页</label> ' +
+                                 '</div> ' +
+                                 '<span class="remove"><a>清除结果</a></span>' +
+                                 '<div class="fr"> ' +
+                                 '<a class="start">首页 </a>' +
+                                 '<a class="next">下一页 </a>' +
+                                 '<a class="before">上一页 </a>' +
+                                 '</div> ' +
+                                 '</div>';
+                                 }
+                                 temp.before(html).trigger('create');//在searchInfo之前插入内容
+                                 $('.remove').on("click", "a", function () {
+                                 $('.searchInfo').prevUntil().remove();
+                                 $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
+                                 $('.bookList').show();
+                                 });
+                                 html = '';*/
                                 html = '亲，您这次神马都没有搜到哦，换个关键词试试呗！';
                                 temp.append(html).trigger('create');
                             } else {
+                                $('.bookList').hide();
                                 var countPage;
                                 var pages;
                                 var temp = $('.searchInfo');
@@ -113,10 +114,10 @@ $(function () {
                                     pages = returnData.Detail.Pages;
                                     html += '<div class="bar"> ' +
                                         '<div class="fl"> ' +
-                                        '<label>第<span class="blue" id="currentPage">' + countPage + '</span>页</label>/' +
-                                        '<label>共<span class="blue" id="pages">' + returnData.Detail.Pages + '</span>页</label> ' +
+                                        '<label>第<span class="currentPage blue">' + countPage + '</span>页</label>/' +
+                                        '<label>共<span class="pages blue">' + returnData.Detail.Pages + '</span>页</label> ' +
                                         '</div> ' +
-                                        '<span id="remove"><a>清除结果</a></span>' +
+                                        '<span class="remove"><a>清除结果</a></span>' +
                                         '<div class="fr"> ' +
                                         '<a class="start">首页 </a>' +
                                         '<a class="before">上一页 </a>' +
@@ -125,6 +126,8 @@ $(function () {
                                         '</div>';
                                 }
                                 temp.before(html).trigger('create');//在searchInfo之前插入内容
+                                temp.after(html).trigger('create');//在searchInfo之后插入内容
+                                //绑定搜索结果
                                 html = '';
                                 $.each(searchInfo, function (index, value) {
                                         html += '<div class="y_books"> ' +
@@ -141,13 +144,16 @@ $(function () {
                                     }
                                 );
                                 temp.append(html).trigger('create');
-                                $('#remove').on("click", "a", function () {
+                                //清除搜索结果
+                                $('.remove').on("click", "a", function () {
                                     $('.searchInfo').prevUntil().remove();
+                                    $('.searchInfo').nextUntil().eq(0).remove();
                                     $('.searchInfo').empty().append('亲，您还没有搜索内容哦！');
                                     $('.bookList').show();
                                 });
                                 var Page = 1;
                                 var page;
+                                //返回第一页
                                 isFinished = true;
                                 $('.start').on("click", function () {
                                     Page = 1;
@@ -163,7 +169,7 @@ $(function () {
                                             if (returnData.Result) {
                                                 isFinished = true;
                                                 countPage = returnData.Detail.CurrentPage;
-                                                $('#currentPage').text(countPage);
+                                                $('.currentPage').text(countPage);
                                                 var searchInfo = returnData.Detail.BookData;
                                                 var html = '';
                                                 $.each(searchInfo, function (index, value) {
@@ -194,6 +200,7 @@ $(function () {
                                     }
 
                                 });
+                                //下一页
                                 isFinished = true;
                                 $('.next').on("click", function () {
                                     apiName = 'search';
@@ -212,7 +219,7 @@ $(function () {
                                                 if (returnData.Result) {
                                                     isFinished = true;
                                                     countPage = returnData.Detail.CurrentPage;
-                                                    $('#currentPage').text(countPage);
+                                                    $('.currentPage').text(countPage);
                                                     Page++;
                                                     var searchInfo = returnData.Detail.BookData;
                                                     var html = '';
@@ -245,6 +252,7 @@ $(function () {
                                     }
 
                                 });
+                                //上一页
                                 isFinished = true;
                                 $('.before').on("click", function () {
                                     apiName = 'search';
@@ -263,7 +271,7 @@ $(function () {
                                                 if (returnData.Result) {
                                                     isFinished = true;
                                                     countPage = returnData.Detail.CurrentPage;
-                                                    $('#currentPage').text(countPage);
+                                                    $('.currentPage').text(countPage);
                                                     Page--;
                                                     var searchInfo = returnData.Detail.BookData;
                                                     var html = '';

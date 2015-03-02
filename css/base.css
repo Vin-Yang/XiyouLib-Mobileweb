@@ -19,7 +19,8 @@
 .lh200{ line-height:200%;}
 .unl{ text-decoration:underline;}
 .noUnl{ text-decoration:none;}
-
+.green{color: #52B54C;}
+.red{color: #FD0000;}
 /*定位*/
 .tl{ text-align:left;}
 .tc{ text-align:center;}
@@ -66,7 +67,7 @@
 .w980{ width:980px;}
 .w{ width:100%;}
 .h20{ height:20px}
-.h50{ height:50px;}
+.h40{ height:40px}
 .h80{ height:80px;}
 .h100{ height:100px;}
 .h200{ height:200px;}

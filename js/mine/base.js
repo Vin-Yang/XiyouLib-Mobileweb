@@ -2,7 +2,7 @@
  * Created by 文鹏 on 2014/7/30.
  */
 (function () {
-    var host = "http://172.20.0.150:18000";
+    var host = "http://api.xiyoumobile.com/xiyoulibv2";
     $.ajaxSetup({
         type: "GET",
         dataType: "jsonp",
@@ -12,7 +12,7 @@
     Base = function () {
     };
     Base.prototype.setHost = function (value) {
-        host = value;
+        host = value
     };
     Base.prototype.Ajax = function (data, api, callback) {
         $.ajax({

@@ -45,6 +45,25 @@
 }
 
 /*==#borrowPage部分==*/
+/*borrowingInfo start*/
+.borrowingInfo {
+    border-radius: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+}
+.borrowingInfo p label{
+    padding: 0 5px;
+    font-size: 18px;
+}
+.borrowingInfo-left{
+    float: left;
+    width: 50%;
+}
+.borrowingInfo-right{
+    float: right;
+    width: 50%;
+}
+/*end*/
 /*.books info start.*/
 .bookInfo {
     border-radius: 5px;
